@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AppointmentService, Appointment } from '../../../services/appointment.service';
+import { AppointmentService, Appointments } from '../../../services/appointment.service';
 
 @Component({
   selector: 'app-patient-check-in',
@@ -13,8 +13,8 @@ import { AppointmentService, Appointment } from '../../../services/appointment.s
   styleUrl: './patient-check-in.css'
 })
 export class PatientCheckIn implements OnInit {
-  appointments: Appointment[] = [];
-  filteredAppointments: Appointment[] = [];
+  appointments: Appointments[] = [];
+  filteredAppointments: Appointments[] = [];
   filterStatus: string = '';
   searchTerm: string = '';
 
@@ -27,10 +27,9 @@ export class PatientCheckIn implements OnInit {
     this.loadAllAppointments();
   }
 
-  // Load all appointments with full details
   loadAllAppointments(): void {
     this.appointmentService.getAllAppointments().subscribe({
-      next: (data: Appointment[]) => {
+      next: (data: Appointments[]) => {
         this.appointments = data || [];
         this.filteredAppointments = [...this.appointments];
         console.log('Loaded appointments:', this.appointments);
@@ -42,17 +41,14 @@ export class PatientCheckIn implements OnInit {
     });
   }
 
-  // Apply filters
   applyFilter(): void {
     this.filteredAppointments = this.appointments.filter(appt => {
       let matches = true;
 
-      // Filter by status
       if (this.filterStatus && this.filterStatus !== '') {
         matches = matches && appt.status === this.filterStatus;
       }
 
-      // Filter by patient name
       if (this.searchTerm && this.searchTerm.trim() !== '') {
         const patientName = (appt.patientName || '').toLowerCase();
         const search = this.searchTerm.toLowerCase().trim();
@@ -63,9 +59,7 @@ export class PatientCheckIn implements OnInit {
     });
   }
 
-  // Check in patient
-  checkInPatient(appointment: Appointment): void {
-    // Validate: Only Confirmed appointments can be checked in
+  checkInPatient(appointment: Appointments): void {
     if (appointment.status !== 'Confirmed') {
       Swal.fire({
         icon: 'warning',
@@ -76,7 +70,6 @@ export class PatientCheckIn implements OnInit {
       return;
     }
 
-    // Check if already checked in
     if (appointment.checkIn === true) {
       Swal.fire({
         icon: 'info',
@@ -87,7 +80,6 @@ export class PatientCheckIn implements OnInit {
       return;
     }
 
-    // Confirm check-in
     Swal.fire({
       title: 'Check In Patient?',
       html: `
@@ -110,8 +102,7 @@ export class PatientCheckIn implements OnInit {
     });
   }
 
-  // Perform the check-in operation using the dedicated endpoint
-  performCheckIn(appointment: Appointment): void {
+  performCheckIn(appointment: Appointments): void {
     this.appointmentService.checkInAppointment(appointment.id!).subscribe({
       next: () => {
         Swal.fire({
@@ -122,14 +113,12 @@ export class PatientCheckIn implements OnInit {
           showConfirmButton: false
         });
 
-        // Update local data
         const index = this.appointments.findIndex(a => a.id === appointment.id);
         if (index !== -1) {
           this.appointments[index].status = 'Completed';
           this.appointments[index].checkIn = true;
         }
 
-        // Reapply filters
         this.applyFilter();
       },
       error: (err) => {
@@ -144,8 +133,7 @@ export class PatientCheckIn implements OnInit {
     });
   }
 
-  // View appointment details
-  viewDetails(appointment: Appointment): void {
+  viewDetails(appointment: Appointments): void {
     const appointmentDate = new Date(appointment.preferredDate).toLocaleDateString('en-US', {
       weekday: 'long',
       year: 'numeric',
@@ -183,7 +171,6 @@ export class PatientCheckIn implements OnInit {
     });
   }
 
-  // Get status color
   getStatusColor(status: string | undefined): string {
     switch(status) {
       case 'Confirmed': return '#ffc107';
@@ -194,17 +181,14 @@ export class PatientCheckIn implements OnInit {
     }
   }
 
-  // Get count by status
   getCountByStatus(status: string): number {
     return this.appointments.filter(a => a.status === status).length;
   }
 
-  // Get checked in count
   getCheckedInCount(): number {
     return this.appointments.filter(a => a.checkIn === true).length;
   }
 
-  // Navigate to home
   goToHome(): void {
     this.router.navigate(['/dashboard']);
   }

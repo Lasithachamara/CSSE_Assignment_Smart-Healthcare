@@ -9,7 +9,7 @@
                 <li><a href="/PatientReports">Reports</a></li>
             </ul>
         </div>
-        <div class="user-info">Welcome, {{ user.firstName }} {{ user.lastName }} | <a href="/"
+        <div class="user-info">Welcome, {{ user?.firstName }} {{ user?.lastName }} | <a href="/"
                 class="logout-link">Logout</a></div>
     </div>
 
@@ -19,8 +19,8 @@
 
     <div class="profile-card">
         <div class="profile-avatar">👤</div>
-        <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-        <p>Patient ID: P{{ ('000000' + user.id).slice(-6) }} | NIC: {{ user.nic }}</p>
+        <h3>{{ user?.firstName }} {{ user?.lastName }}</h3>
+        <p>Patient ID: P{{ ('000000' + user?.id).slice(-6) }} | NIC: {{ user?.nic }}</p>
         <div style="margin-top: 20px;">
             <button class="btn btn-warning" (click)="goTo('EditProfile')">Edit Profile</button>
             <button class="btn btn-success" (click)="goTo('AddMedicalReport')">Add Medical Report</button>
@@ -30,12 +30,12 @@
     <div class="form-container">
         <h4 style="color: #333; margin-bottom: 15px;">Personal Information</h4>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.9rem;">
-            <div><strong>Full Name:</strong> {{ user.firstName }} {{ user.lastName }}</div>
-            <div><strong>Date of Birth:</strong> {{ user.dateOfBirth | date:'longDate' }}</div>
-            <div><strong>Contact:</strong> {{ user.mobile }}</div>
-            <div><strong>Email:</strong> {{ user.email }}</div>
-            <div><strong>Address:</strong> {{ user.address }}</div>
-            <div><strong>Blood Type:</strong> {{ user.bloodType }}</div>
+            <div><strong>Full Name:</strong> {{ user?.firstName }} {{ user?.lastName }}</div>
+            <div><strong>Date of Birth:</strong> {{ user?.dateOfBirth | date:'longDate' }}</div>
+            <div><strong>Contact:</strong> {{ user?.mobile }}</div>
+            <div><strong>Email:</strong> {{ user?.email }}</div>
+            <div><strong>Address:</strong> {{ user?.address }}</div>
+            <div><strong>Blood Type:</strong> {{ user?.bloodType }}</div>
         </div>
     </div>
 

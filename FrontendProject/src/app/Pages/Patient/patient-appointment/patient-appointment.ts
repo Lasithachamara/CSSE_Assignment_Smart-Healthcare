@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AppointmentService, Appointment } from '../../../services/appointment.service';
+import { AppointmentService, Appointments } from '../../../services/appointment.service';
 import { User } from '../../../Models/user.model';
 import { UserDetailService } from '../../../services/user-details.service';
 import { FormsModule } from '@angular/forms';
@@ -16,14 +16,14 @@ interface FilterCriteria {
 
 @Component({
   selector: 'app-appointment',
-  templateUrl: './Patient-Appointment.html',
+  templateUrl: './patient-appointment.html',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  styleUrls: ['./Patient-Appointment.css']
+  styleUrls: ['./patient-appointment.css']
 })
 export class PatientAppointment implements OnInit {
-  appointments: Appointment[] = [];
-  filteredAppointments: Appointment[] = [];
+  appointments: Appointments[] = [];
+  filteredAppointments: Appointments[] = [];
   user?: User;
   message = '';
 
@@ -44,7 +44,7 @@ export class PatientAppointment implements OnInit {
     this.loadUser();
   }
 
-  // Load logged-in user from localStorage
+  
   loadUser(): void {
     const savedUserJson = localStorage.getItem('currentUser');
     if (!savedUserJson) {
@@ -78,18 +78,17 @@ export class PatientAppointment implements OnInit {
     }
   }
 
-  // Load user-wise appointments
   loadAppointments(userId: number): void {
     console.log('Loading appointments for user ID:', userId);
     
     this.appointmentService.getAppointmentsByUser(userId).subscribe({
-      next: (res: Appointment[]) => {
+      next: (res: Appointments[]) => {
         this.appointments = res ?? [];
         this.filteredAppointments = [...this.appointments];
         console.log('Loaded appointments:', this.appointments);
         console.log('Total appointments:', this.appointments.length);
         
-        // Log sample appointment structure
+ 
         if (this.appointments.length > 0) {
           console.log('Sample appointment data:', this.appointments[0]);
         }
@@ -101,13 +100,12 @@ export class PatientAppointment implements OnInit {
     });
   }
 
-  // Real-time filter change (optional - for live filtering)
+
   onFilterChange(): void {
-    // Uncomment this if you want filtering to happen as you type
-    // this.applyFilters();
+
   }
 
-  // Apply filters to appointments
+
   applyFilters(): void {
     console.log('=== Applying Filters ===');
     console.log('Filter Criteria:', this.filterCriteria);
@@ -116,7 +114,7 @@ export class PatientAppointment implements OnInit {
     this.filteredAppointments = this.appointments.filter(appt => {
       let matches = true;
 
-      // Filter by doctor name (case-insensitive, partial match)
+   
       if (this.filterCriteria.doctorName && this.filterCriteria.doctorName.trim() !== '') {
         const doctorName = (appt.doctorName || '').toLowerCase();
         const searchTerm = this.filterCriteria.doctorName.toLowerCase().trim();
@@ -126,7 +124,6 @@ export class PatientAppointment implements OnInit {
         matches = matches && nameMatch;
       }
 
-      // Filter by department/specialization (exact match)
       if (this.filterCriteria.departmentName && this.filterCriteria.departmentName !== '') {
         const deptMatch = appt.departmentName === this.filterCriteria.departmentName;
         
@@ -134,12 +131,11 @@ export class PatientAppointment implements OnInit {
         matches = matches && deptMatch;
       }
 
-      // Filter by date (exact date match)
       if (this.filterCriteria.preferredDate && this.filterCriteria.preferredDate !== '') {
         const apptDate = new Date(appt.preferredDate);
         const filterDate = new Date(this.filterCriteria.preferredDate);
         
-        // Compare dates only (ignore time)
+     
         const apptDateStr = apptDate.toISOString().split('T')[0];
         const filterDateStr = filterDate.toISOString().split('T')[0];
         
@@ -149,7 +145,7 @@ export class PatientAppointment implements OnInit {
         matches = matches && dateMatch;
       }
 
-      // Filter by status (exact match)
+ 
       if (this.filterCriteria.status && this.filterCriteria.status !== '') {
         const statusMatch = appt.status === this.filterCriteria.status;
         
@@ -164,27 +160,10 @@ export class PatientAppointment implements OnInit {
     console.log('Filtered Appointments Count:', this.filteredAppointments.length);
     console.log('Filtered Appointments:', this.filteredAppointments);
 
-    // Show user feedback
-    // if (this.filteredAppointments.length === 0) {
-    //   Swal.fire({
-    //     icon: 'info',
-    //     title: 'No Results',
-    //     text: 'No appointments match your search criteria.',
-    //     timer: 2000,
-    //     showConfirmButton: false
-    //   });
-    // } else {
-    //   Swal.fire({
-    //     icon: 'success',
-    //     title: 'Search Complete',
-    //     text: `Found ${this.filteredAppointments.length} appointment(s)`,
-    //     timer: 1500,
-    //     showConfirmButton: false
-    //   });
-    // }
+
   }
 
-  // Clear all filters
+
   clearFilters(): void {
     console.log('Clearing filters');
     
@@ -199,16 +178,10 @@ export class PatientAppointment implements OnInit {
     
     console.log('Filters cleared, showing all appointments:', this.filteredAppointments.length);
     
-    // Swal.fire({
-    //   icon: 'success',
-    //   title: 'Filters Cleared',
-    //   text: `Showing all ${this.appointments.length} appointments`,
-    //   timer: 1500,
-    //   showConfirmButton: false
-    // });
+
   }
 
-  // Get initials for doctor avatar
+ 
   getInitials(name: string | undefined): string {
     if (!name) return 'NA';
     const parts = name.trim().split(' ');
@@ -218,11 +191,11 @@ export class PatientAppointment implements OnInit {
     return name.substring(0, 2).toUpperCase();
   }
 
-  // Format time to readable format
+
   formatTime(time: string | undefined): string {
     if (!time) return 'N/A';
     
-    // If time is already in HH:MM format
+   
     if (time.includes(':')) {
       const [hours, minutes] = time.split(':');
       const hour = parseInt(hours);
@@ -234,8 +207,8 @@ export class PatientAppointment implements OnInit {
     return time;
   }
 
-  // View appointment details
-  viewDetails(appointment: Appointment): void {
+
+  viewDetails(appointment: Appointments): void {
     const appointmentDate = new Date(appointment.preferredDate).toLocaleDateString('en-US', {
       weekday: 'long',
       year: 'numeric',
@@ -275,7 +248,6 @@ export class PatientAppointment implements OnInit {
     this.router.navigate(['/add-appointment']);
   }
 
-  // Update appointment - Show contact message
   updateAppointment(appointmentId: number): void {
     Swal.fire({
       title: '📞 Contact Hospital Staff',
@@ -301,7 +273,6 @@ export class PatientAppointment implements OnInit {
     });
   }
 
-  // Cancel appointment - Show contact message with confirmation
   cancelAppointment(appointmentId: number): void {
     Swal.fire({
       title: '❌ Cancel Appointment',

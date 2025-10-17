@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AppointmentService, Appointment } from '../../../services/appointment.service';
+import { AppointmentService, Appointments } from '../../../services/appointment.service';
 import { User } from '../../../Models/user.model';
 import { UserDetailService } from '../../../services/user-details.service';
 import { FormsModule } from '@angular/forms';
@@ -14,9 +14,9 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   styleUrls: ['./appointment.css']
 })
-export class AppointmentComponent implements OnInit {
-  appointments: Appointment[] = [];
-  user?: User;  // Make optional to handle undefined safely
+export class Appointment implements OnInit {
+  appointments: Appointments[] = [];
+  user?: User;  
   message = '';
 
   constructor(
@@ -59,7 +59,7 @@ export class AppointmentComponent implements OnInit {
 
   loadAppointments(userId: number): void {
     this.appointmentService.getAppointmentsByUser(userId).subscribe({
-      next: (res: Appointment[]) => {
+      next: (res: Appointments[]) => {
         this.appointments = res ?? [];
       },
       error: (err) =>

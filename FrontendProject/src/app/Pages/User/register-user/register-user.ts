@@ -22,7 +22,7 @@ export class RegisterUserComponent implements OnInit {
     userName: '',
     email: '',
     password: '',
-    accessLevel: 1, // default: Patient
+    accessLevel: 1, 
     activeStatus: true,
     mobile: '',
     createdBy: '',
@@ -36,9 +36,9 @@ export class RegisterUserComponent implements OnInit {
     qrcode: ''
   };
 
-  confirmPassword: string = ''; // ✅ added
-  message: string = '';         // ✅ added
-  loading: boolean = false;     // ✅ added
+  confirmPassword: string = ''; 
+  message: string = '';         
+  loading: boolean = false;     
 
   accessLevels = [
   { label: 'Patient', value: 1 },
@@ -49,7 +49,7 @@ export class RegisterUserComponent implements OnInit {
   constructor(
     private userService: AddUserService,
     private loginService: LoginService,
-    private router: Router         // ✅ injected router
+    private router: Router         
   ) {}
 
   ngOnInit(): void {
@@ -75,14 +75,13 @@ const currentUser = currentUserJson ? JSON.parse(currentUserJson) : null;
 const name1 = currentUser ? currentUser.userName : 'Unknown';
 
 
-  // Prepare payload
   const payload = {
     ...this.user,
 
     createdBy: name1,
     createdDate: new Date().toISOString(),
-    accessLevel: Number(this.user.accessLevel), // convert to number
-    dateOfBirth: new Date(this.user.dateOfBirth).toISOString() // ensure correct ISO format
+    accessLevel: Number(this.user.accessLevel), 
+    dateOfBirth: new Date(this.user.dateOfBirth).toISOString() 
   };
 
   console.log('Payload to send:', payload);

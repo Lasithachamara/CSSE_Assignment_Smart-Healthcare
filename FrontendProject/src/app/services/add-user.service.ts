@@ -42,9 +42,6 @@ export class AddUserService {
     return this.http.post<any[]>(`${environment.apiUrl}Users/getallUserlevel`, {});
   }
 
-  // getUserById(id: number): Observable<any> {
-  //   return this.http.post<any>(`${environment.apiUrl}Users/getbyid`, { id });
-  // }
   getUserById(id: number): Observable<User> {
     const params = new HttpParams().set('id', id.toString());
     return this.http.post<User>(`${environment.apiUrl}Users/getbyid`, null, { params });
@@ -77,7 +74,7 @@ createUser(user: UserDto): Observable<any> {
     qrcode: user.qrcode
   };
 
-  console.log('Creating user with payload:', payload); // Debug log
+  console.log('Creating user with payload:', payload); 
 
   return this.http.post(`${environment.apiUrl}Users/create`, payload);
 }

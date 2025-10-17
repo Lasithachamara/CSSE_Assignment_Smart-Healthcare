@@ -22,10 +22,10 @@ export class PatientDashboard {
   ) {}
 
   ngOnInit(): void {
-    // this.userId = Number(this.route.snapshot.paramMap.get('id'));
+   
     const idStr = localStorage.getItem('id');
     this.userId = idStr ? Number(idStr) : 0;
-    // this.userId=1003
+   
     this.loadUser();
   }
 
@@ -39,7 +39,7 @@ export class PatientDashboard {
 
   try {
     const savedUser = JSON.parse(savedUserJson);
-    const userId = Number(savedUser.id); // ensure number
+    const userId = Number(savedUser.id); 
 
     if (isNaN(userId)) {
       this.message = 'Invalid user ID.';

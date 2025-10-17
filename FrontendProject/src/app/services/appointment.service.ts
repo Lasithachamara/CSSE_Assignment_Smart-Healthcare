@@ -14,7 +14,7 @@ export interface Doctor {
   departmentId: number;
 }
 
-export interface Appointment {
+export interface Appointments {
   id?: number;
   userId: number;
   doctorId: number;
@@ -31,6 +31,7 @@ export interface Appointment {
   patientName?: string;
 }
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,11 +47,11 @@ export class AppointmentService {
     return this.http.post<Doctor[]>(`${environment.apiUrl}Appointment/GetDoctorsByDepartment`, { departmentId });
   }
 
-  getAllAppointments(): Observable<Appointment[]> {
-    return this.http.post<Appointment[]>(`${environment.apiUrl}Appointment/GetAllWithDetails`, null);
+  getAllAppointments(): Observable<Appointments[]> {
+    return this.http.post<Appointments[]>(`${environment.apiUrl}Appointment/GetAllWithDetails`, null);
   }
 
-  createAppointment(appointment: Appointment): Observable<Appointment> {
+  createAppointment(appointment: Appointments): Observable<Appointments> {
     const payload = {
       userId: appointment.userId,
       doctorId: appointment.doctorId,
@@ -59,14 +60,14 @@ export class AppointmentService {
       reasonforVisit: appointment.reasonforVisit,
       createdDate: new Date().toISOString()
     };
-    return this.http.post<Appointment>(`${environment.apiUrl}Appointment/Create`, payload);
+    return this.http.post<Appointments>(`${environment.apiUrl}Appointment/Create`, payload);
   }
 
-  getAppointmentsByUser(userId: number): Observable<Appointment[]> {
-    return this.http.post<Appointment[]>(`${environment.apiUrl}Appointment/GetAppointmentsByUser`, { userId });
+  getAppointmentsByUser(userId: number): Observable<Appointments[]> {
+    return this.http.post<Appointments[]>(`${environment.apiUrl}Appointment/GetAppointmentsByUser`, { userId });
   }
 
-  updateAppointment(id: number, appointment: Appointment): Observable<any> {
+  updateAppointment(id: number, appointment: Appointments): Observable<any> {
     return this.http.post(`${environment.apiUrl}Appointment/Update`, { 
       id: id,
       ...appointment 

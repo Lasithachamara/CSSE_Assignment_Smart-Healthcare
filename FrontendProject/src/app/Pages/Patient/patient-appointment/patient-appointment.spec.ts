@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PatientAppointment } from './patient-appointment';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppointmentService } from '../../../services/appointment.service'; 
 
 describe('PatientAppointment', () => {
   let component: PatientAppointment;
@@ -8,9 +9,14 @@ describe('PatientAppointment', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PatientAppointment]
-    })
-    .compileComponents();
+      imports: [
+        PatientAppointment,
+        HttpClientTestingModule
+      ],
+      providers: [
+        AppointmentService
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PatientAppointment);
     component = fixture.componentInstance;

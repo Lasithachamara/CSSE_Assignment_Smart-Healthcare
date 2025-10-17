@@ -33,14 +33,12 @@ export class EditProfileComponent implements OnInit {
   constructor(private AddUserService: AddUserService, private router: Router) {}
 
   ngOnInit(): void {
-    // Get current user info from localStorage or API
     const savedUserJson = localStorage.getItem('currentUser');
     if (savedUserJson) {
       const currentUser = JSON.parse(savedUserJson);
       this.user = { ...this.user, ...currentUser };
     }
 
-    // Fetch latest user info from API
     if (this.user.id) {
       this.AddUserService.getUserById(this.user.id).subscribe({
         next: (data) => {

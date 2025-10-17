@@ -12,7 +12,7 @@ import { MedicalReportService } from '../../../services/medical-report.service';
   styleUrls: ['./add-medical-report.css']
 })
 export class AddMedicalReport implements OnInit {
-  patientId: number | null = null;      // Automatically set
+  patientId: number | null = null;      
   selectedFile: File | null = null;
   message: string = '';
   isLoading: boolean = false;
@@ -27,10 +27,8 @@ export class AddMedicalReport implements OnInit {
       this.userAccessLevel = userObj.accessLevel;
 
       if (this.userAccessLevel === 2) {
-        // Normal user: use their own ID
         this.patientId = userObj.id;
       } else if (this.userAccessLevel === 3) {
-        // Doctor: use selectedUserId from localStorage
         const selectedIdStr = localStorage.getItem('selectedUserId');
         this.patientId = selectedIdStr ? parseInt(selectedIdStr, 10) : null;
       }
@@ -60,7 +58,6 @@ export class AddMedicalReport implements OnInit {
     this.isLoading = true;
     this.message = '';
 
-    // Append patientId to the file name
     const fileNameWithUserId = `${this.patientId}_${this.selectedFile.name}`;
     const fileWithUserId = new File([this.selectedFile], fileNameWithUserId, { type: this.selectedFile.type });
 
@@ -70,14 +67,11 @@ export class AddMedicalReport implements OnInit {
           this.message = '✅ ' + res.message;
           this.isLoading = false;
 
-          // Reset file
           this.selectedFile = null;
 
-          // Navigate depending on access level
           if (this.userAccessLevel === 2) {
             this.router.navigate(['/user-wise-details']);
           } else if (this.userAccessLevel === 3) {
-            // Doctor can stay on the same page or navigate as needed
             this.router.navigate(['/Home']);
           }
         },

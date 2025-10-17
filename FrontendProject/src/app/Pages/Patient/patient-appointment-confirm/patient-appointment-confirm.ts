@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AppointmentService, Appointment } from '../../../services/appointment.service';
+import { AppointmentService, Appointments } from '../../../services/appointment.service';
 
 @Component({
   selector: 'app-patient-appointment-confirm',
@@ -13,8 +13,8 @@ import { AppointmentService, Appointment } from '../../../services/appointment.s
   styleUrl: './patient-appointment-confirm.css'
 })
 export class PatientAppointmentConfirm implements OnInit {
-  appointments: Appointment[] = [];
-  filteredAppointments: Appointment[] = [];
+  appointments: Appointments[] = [];
+  filteredAppointments: Appointments[] = [];
   filterStatus: string = '';
   searchTerm: string = '';
   filterDate: string = '';
@@ -28,10 +28,9 @@ export class PatientAppointmentConfirm implements OnInit {
     this.loadAllAppointments();
   }
 
-  // Load all appointments with full details
   loadAllAppointments(): void {
     this.appointmentService.getAllAppointments().subscribe({
-      next: (data: Appointment[]) => {
+      next: (data: Appointments[]) => {
         this.appointments = data || [];
         this.filteredAppointments = [...this.appointments];
         console.log('Loaded appointments:', this.appointments);
@@ -48,24 +47,20 @@ export class PatientAppointmentConfirm implements OnInit {
     });
   }
 
-  // Apply filters
   applyFilter(): void {
     this.filteredAppointments = this.appointments.filter(appt => {
       let matches = true;
 
-      // Filter by status
       if (this.filterStatus && this.filterStatus !== '') {
         matches = matches && appt.status === this.filterStatus;
       }
 
-      // Filter by patient name
       if (this.searchTerm && this.searchTerm.trim() !== '') {
         const patientName = (appt.patientName || '').toLowerCase();
         const search = this.searchTerm.toLowerCase().trim();
         matches = matches && patientName.includes(search);
       }
 
-      // Filter by date
       if (this.filterDate && this.filterDate !== '') {
         const apptDate = new Date(appt.preferredDate).toISOString().split('T')[0];
         matches = matches && apptDate === this.filterDate;
@@ -75,9 +70,8 @@ export class PatientAppointmentConfirm implements OnInit {
     });
   }
 
-  // Confirm appointment
-  confirmAppointment(appointment: Appointment): void {
-    // Validate: Only Pending appointments can be confirmed
+  confirmAppointment(appointment: Appointments): void {
+
     if (appointment.status !== 'Pending') {
       Swal.fire({
         icon: 'warning',
@@ -88,7 +82,7 @@ export class PatientAppointmentConfirm implements OnInit {
       return;
     }
 
-    // Confirm action
+
     Swal.fire({
       title: 'Confirm Appointment?',
       html: `
@@ -114,13 +108,10 @@ export class PatientAppointmentConfirm implements OnInit {
     });
   }
 
-  // Perform the confirmation
-  performConfirm(appointment: Appointment): void {
-    // Update appointment status to Confirmed (checkIn remains unchanged)
-    const updatedAppointment: Appointment = {
+  performConfirm(appointment: Appointments): void {
+    const updatedAppointment: Appointments = {
       ...appointment,
       status: 'Confirmed'
-      // checkIn field is NOT updated here
     };
 
     this.appointmentService.updateAppointment(appointment.id!, updatedAppointment).subscribe({
@@ -133,13 +124,11 @@ export class PatientAppointmentConfirm implements OnInit {
           showConfirmButton: false
         });
 
-        // Update local data
         const index = this.appointments.findIndex(a => a.id === appointment.id);
         if (index !== -1) {
           this.appointments[index].status = 'Confirmed';
         }
 
-        // Reapply filters
         this.applyFilter();
       },
       error: (err) => {
@@ -154,9 +143,8 @@ export class PatientAppointmentConfirm implements OnInit {
     });
   }
 
-  // Cancel appointment
-  cancelAppointment(appointment: Appointment): void {
-    // Validate: Only Pending appointments can be cancelled
+  cancelAppointment(appointment: Appointments): void {
+
     if (appointment.status !== 'Pending') {
       Swal.fire({
         icon: 'warning',
@@ -167,7 +155,6 @@ export class PatientAppointmentConfirm implements OnInit {
       return;
     }
 
-    // Confirm cancellation
     Swal.fire({
       title: 'Cancel Appointment?',
       html: `
@@ -194,13 +181,10 @@ export class PatientAppointmentConfirm implements OnInit {
     });
   }
 
-  // Perform the cancellation
-  performCancel(appointment: Appointment): void {
-    // Update appointment status to Cancelled (checkIn remains unchanged)
-    const updatedAppointment: Appointment = {
+  performCancel(appointment: Appointments): void {
+    const updatedAppointment: Appointments = {
       ...appointment,
       status: 'Cancelled'
-      // checkIn field is NOT updated here
     };
 
     this.appointmentService.updateAppointment(appointment.id!, updatedAppointment).subscribe({
@@ -213,13 +197,11 @@ export class PatientAppointmentConfirm implements OnInit {
           showConfirmButton: false
         });
 
-        // Update local data
         const index = this.appointments.findIndex(a => a.id === appointment.id);
         if (index !== -1) {
           this.appointments[index].status = 'Cancelled';
         }
 
-        // Reapply filters
         this.applyFilter();
       },
       error: (err) => {
@@ -234,8 +216,8 @@ export class PatientAppointmentConfirm implements OnInit {
     });
   }
 
-  // View appointment details
-  viewDetails(appointment: Appointment): void {
+
+  viewDetails(appointment: Appointments): void {
     const appointmentDate = new Date(appointment.preferredDate).toLocaleDateString('en-US', {
       weekday: 'long',
       year: 'numeric',
@@ -274,7 +256,6 @@ export class PatientAppointmentConfirm implements OnInit {
     });
   }
 
-  // Get status color
   getStatusColor(status: string | undefined): string {
     switch(status) {
       case 'Confirmed': return '#ffc107';
@@ -284,13 +265,11 @@ export class PatientAppointmentConfirm implements OnInit {
       default: return '#6c757d';
     }
   }
-
-  // Get count by status
   getCountByStatus(status: string): number {
     return this.appointments.filter(a => a.status === status).length;
   }
 
-  // Navigate to home
+
   goToHome(): void {
     this.router.navigate(['/dashboard']);
   }

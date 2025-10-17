@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { User } from '../../../Models/user.model';
 import { UserDetailService } from '../../../services/user-details.service';
-import { AppointmentService, Department, Doctor, Appointment } from '../../../services/appointment.service';
+import { AppointmentService, Department, Doctor, Appointments } from '../../../services/appointment.service';
 
 @Component({
   selector: 'app-add-appointment',
@@ -38,8 +38,8 @@ export class AddAppointment implements OnInit {
 
   message = '';
 
-  appointment: Appointment = {
-    userId: 1, // ✅ Replace with logged-in user ID
+  appointment: Appointments = {
+    userId: 1, 
     doctorId: 0,
     preferredDate: '',
     availableTimeSlots: '',
@@ -111,7 +111,7 @@ export class AddAppointment implements OnInit {
         timer: 2000,
         showConfirmButton: false,
       }).then(() => {
-        this.router.navigate(['/appointment']); // navigate after success  
+        this.router.navigate(['/appointment']); 
       });
     },
     error: (err) => {
@@ -134,7 +134,7 @@ loadUser() {
 
   try {
     const savedUser = JSON.parse(savedUserJson);
-    const userId = Number(savedUser.id); // ensure number
+    const userId = Number(savedUser.id); 
 
     if (isNaN(userId)) {
       this.message = 'Invalid user ID.';

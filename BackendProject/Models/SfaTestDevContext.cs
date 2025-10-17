@@ -17,19 +17,9 @@ public partial class SfaTestDevContext : DbContext
 
     public virtual DbSet<Appointment> Appointments { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
-
     public virtual DbSet<Department> Departments { get; set; }
 
     public virtual DbSet<Docter> Docters { get; set; }
-
-    public virtual DbSet<Employee> Employees { get; set; }
-
-    public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
-
-    public virtual DbSet<InvoiceHeader> InvoiceHeaders { get; set; }
-
-    public virtual DbSet<Item> Items { get; set; }
 
     public virtual DbSet<MedicalHistory> MedicalHistories { get; set; }
 
@@ -62,21 +52,7 @@ public partial class SfaTestDevContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<Customer>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Customer__3214EC07FDACF5A2");
-
-            entity.ToTable("Customer");
-
-            entity.HasIndex(e => e.Nic, "UQ_Customers_Nic").IsUnique();
-
-            entity.Property(e => e.CreatedBy)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Name).HasMaxLength(50);
-            entity.Property(e => e.Nic).HasMaxLength(12);
-        });
+        
 
         modelBuilder.Entity<Department>(entity =>
         {
@@ -98,68 +74,6 @@ public partial class SfaTestDevContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<Employee>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Employee__AF2DBB993AFC4000");
-
-            entity.ToTable("Employee");
-
-            entity.Property(e => e.Code)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.Name)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Salary).HasColumnType("decimal(18, 2)");
-        });
-
-        modelBuilder.Entity<InvoiceDetail>(entity =>
-        {
-            entity.HasKey(e => new { e.InvoiceId, e.ItemId }).HasName("PK_InvoiceDetails_InvoiceId_ItemId");
-
-            entity.Property(e => e.InvoiceId)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.CreatedBy)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Discount).HasColumnType("money");
-            entity.Property(e => e.Price).HasColumnType("money");
-            entity.Property(e => e.TotalAmount).HasColumnType("money");
-        });
-
-        modelBuilder.Entity<InvoiceHeader>(entity =>
-        {
-            entity.HasKey(e => e.InvoiceNo).HasName("PK__Invoice___D796B2267CF37C96");
-
-            entity.ToTable("InvoiceHeader");
-
-            entity.Property(e => e.InvoiceNo)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.CreatedBy)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.InvoiceDate).HasColumnType("datetime");
-            entity.Property(e => e.TotalAmount).HasColumnType("money");
-        });
-
-        modelBuilder.Entity<Item>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Item__3214EC07522F94B4");
-
-            entity.ToTable("Item");
-
-            entity.Property(e => e.CreatedBy)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-        });
 
         modelBuilder.Entity<MedicalHistory>(entity =>
         {

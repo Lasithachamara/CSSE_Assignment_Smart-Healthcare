@@ -1,10 +1,9 @@
 <div class="page-container">
   <div class="table-header">
     <h2>Patient Check-In</h2>
-    <!-- <button class="home-btn" (click)="goToHome()">🏠 Home</button> -->
+
   </div>
 
-  <!-- Filter Section -->
   <div class="filter-section">
     <div class="filter-group">
       <label>Filter by Status:</label>
@@ -26,7 +25,6 @@
     </div>
   </div>
 
-  <!-- Appointments Table -->
   <table class="list-table" *ngIf="filteredAppointments.length > 0; else noAppointments">
     <thead>
       <tr>
@@ -85,14 +83,13 @@
     </tbody>
   </table>
 
-  <!-- No Appointments Message -->
+
   <ng-template #noAppointments>
     <div class="no-data">
       <p>No appointments found.</p>
     </div>
   </ng-template>
 
-  <!-- Summary Section -->
   <div class="summary-section" *ngIf="appointments.length > 0">
     <div class="summary-card">
       <span class="summary-label">Total Appointments:</span>

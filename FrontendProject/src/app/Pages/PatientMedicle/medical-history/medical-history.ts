@@ -16,7 +16,6 @@ export class MedicalHistoryComponent implements OnInit {
   error = '';
   user: any;
 
-  // 🔹 For popup modal
   selectedRecord: MedicalHistory | null = null;
 
   constructor(private historyService: MedicalHistoryService) {}
@@ -41,13 +40,10 @@ export class MedicalHistoryComponent implements OnInit {
       }
     });
   }
-
-  // 🔹 Open popup
   openDetails(record: MedicalHistory): void {
     this.selectedRecord = record;
   }
 
-  // 🔹 Close popup
   closeDetails(): void {
     this.selectedRecord = null;
   }

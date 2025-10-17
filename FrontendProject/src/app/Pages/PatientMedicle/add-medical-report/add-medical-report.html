@@ -4,7 +4,6 @@
 
     <form (ngSubmit)="uploadReport()" class="upload-form">
 
-        <!-- Patient ID input is shown only for users who are NOT AccessLevel 2 -->
     <div class="form-group" *ngIf="userAccessLevel !== 2">
       <label>Patient ID</label>
       <input type="number" [(ngModel)]="patientId" name="patientId" required placeholder="Enter patient ID" class="form-input">

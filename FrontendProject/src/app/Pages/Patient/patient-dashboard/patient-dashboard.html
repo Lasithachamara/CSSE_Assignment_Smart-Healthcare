@@ -10,7 +10,7 @@
                 <li><a href="/PatientReports">Reports</a></li>
             </ul>
         </div>
-        <div class="user-info">Welcome, {{ user.firstName }} {{ user.lastName }} | <a href="/"
+        <div class="user-info">Welcome, {{ user?.firstName }} {{ user?.lastName }} | <a href="/"
                 class="logout-link">Logout</a></div>
     </div>
 
@@ -27,7 +27,7 @@
             </a>
         </div>
         <div class="dashboard-card">
-            <a href="/appointment">
+            <a href="/patient-appointment">
                 <div class="dashboard-card-icon">📅</div>
                 <h4>Appointments</h4>
             </a>

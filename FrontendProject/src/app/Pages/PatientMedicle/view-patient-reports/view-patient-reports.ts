@@ -14,7 +14,7 @@ import { MedicalReportService, MedicalReport } from '../../../services/medical-r
 export class ViewPatientReports implements OnInit {
   user: any;
   medicalReports: MedicalReport[] = [];
-  patientId: number | null = null; // For doctor-selected patient
+  patientId: number | null = null; 
 
   constructor(private medicalReportService: MedicalReportService, private router: Router) {}
 
@@ -22,11 +22,9 @@ export class ViewPatientReports implements OnInit {
     this.user = JSON.parse(localStorage.getItem('currentUser') || '{}');
 
     if (this.user?.accessLevel === 3) {
-      // Doctor: use selectedUserId from localStorage
       const storedUserId = localStorage.getItem('selectedUserId');
       this.patientId = storedUserId ? parseInt(storedUserId, 10) : null;
     } else {
-      // Normal user: use own ID
       this.patientId = this.user?.id || null;
     }
 

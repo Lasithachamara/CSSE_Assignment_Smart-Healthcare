@@ -1,10 +1,10 @@
 <div class="page-container">
   <div class="table-header">
     <h2>Appointment Confirmation</h2>
-    <!-- <button class="home-btn" (click)="goToHome()">🏠 Home</button> -->
+
   </div>
 
-  <!-- Filter Section -->
+
   <div class="filter-section">
     <div class="filter-group">
       <label>Filter by Status:</label>
@@ -35,7 +35,6 @@
     </div>
   </div>
 
-  <!-- Appointments Table -->
   <table class="list-table" *ngIf="filteredAppointments.length > 0; else noAppointments">
     <thead>
       <tr>
@@ -78,7 +77,6 @@
           </span>
         </td>
         <td class="actions-cell">
-          <!-- Confirm Button - Only for Pending -->
           <button 
             class="edit" 
             (click)="confirmAppointment(appointment)"
@@ -88,7 +86,6 @@
             ✓ Confirm
           </button>
           
-          <!-- Cancel Button - Only for Pending -->
           <button 
             class="cancel-btn" 
             (click)="cancelAppointment(appointment)"
@@ -98,7 +95,6 @@
             ✗ Cancel
           </button>
           
-          <!-- View Button - Always available -->
           <button 
             class="delete" 
             (click)="viewDetails(appointment)">
@@ -109,14 +105,13 @@
     </tbody>
   </table>
 
-  <!-- No Appointments Message -->
   <ng-template #noAppointments>
     <div class="no-data">
       <p>No appointments found.</p>
     </div>
   </ng-template>
 
-  <!-- Summary Section -->
+
   <div class="summary-section" *ngIf="appointments.length > 0">
     <div class="summary-card">
       <span class="summary-label">Total Appointments:</span>

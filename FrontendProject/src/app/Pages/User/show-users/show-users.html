@@ -49,7 +49,7 @@
 
 <p class="message">{{ message }}</p>
 
-<!-- User Details Modal -->
+
 <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
@@ -58,14 +58,13 @@
     </div>
     
     <div class="modal-body" *ngIf="selectedUser">
-      <!-- Barcode Section -->
+ 
       <div class="barcode-section">
         <h4>User ID Barcode</h4>
         <canvas #barcodeCanvas class="barcode-canvas"></canvas>
         <p class="barcode-id">ID: {{ selectedUser.id }}</p>
       </div>
 
-      <!-- User Details Grid -->
       <div class="details-grid">
         <div class="form-group">
           <label>NIC</label>
@@ -113,7 +112,6 @@
         </div>
       </div>
 
-      <!-- Password Update Section -->
       <div class="password-section">
         <h4>Update Password</h4>
         <div class="form-row">

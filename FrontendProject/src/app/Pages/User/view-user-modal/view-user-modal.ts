@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-declare var QRCode: any; // global QRCode from CDN
+declare var QRCode: any; 
 
 @Component({
   selector: 'app-user-view-modal',
@@ -12,7 +12,7 @@ declare var QRCode: any; // global QRCode from CDN
   styleUrls: ['./view-user-modal.css']
 })
 export class UserViewModalComponent implements OnInit {
-  @Input() user: any; // user data passed from parent component
+  @Input() user: any; 
   qrCodeDataUrl: string = '';
   newPassword: string = '';
 
@@ -33,8 +33,6 @@ export class UserViewModalComponent implements OnInit {
       alert('Enter a new password.');
       return;
     }
-    // Example POST request
-    // replace with your UserService call
     console.log('Updating password to:', this.newPassword);
     this.user.password = this.newPassword;
     alert('Password updated successfully!');

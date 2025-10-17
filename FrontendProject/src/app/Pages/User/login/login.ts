@@ -1,4 +1,4 @@
-// login.component.ts
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { User } from '../../../Models/user.model';
 
 @Component({
   selector: 'app-login',
-  standalone: true, // optional if using standalone components
+  standalone: true, 
   imports: [CommonModule, FormsModule],
   providers: [LoginService],
   templateUrl: './login.html',
@@ -27,11 +27,9 @@ export class Login {
         console.log('Backend response:', response);
         this.message = 'Login successful!';
 
-        // Save current user to localStorage
         localStorage.setItem('currentUser', JSON.stringify(response));
         this.authService.currentUser = response;
 
-        // Redirect based on accessLevel
         const accessLevel = response.accessLevel || 0;
         console.log('Navigating based on accessLevel:', accessLevel);
 

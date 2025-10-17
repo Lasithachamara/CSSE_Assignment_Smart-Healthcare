@@ -1,4 +1,4 @@
-/* Page grid */
+
 .report-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -6,7 +6,6 @@
   margin-top: 20px;
 }
 
-/* Card styling */
 .report-card {
   background: #f8f9fa;
   border-radius: 12px;
@@ -41,7 +40,6 @@
   justify-content: flex-start;
 }
 
-/* Header & Navbar */
 .app-header {
   background: linear-gradient(135deg, #4CAF50, #45a049);
   color: white;

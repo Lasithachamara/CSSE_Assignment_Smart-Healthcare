@@ -18,10 +18,10 @@ export class DoctorNavbarComponent implements OnInit {
   constructor(private router: Router, private userService: UserDetailService) {}
 
   ngOnInit(): void {
-    // ✅ Fetch all users via POST
+   
     this.userService.getAllUsers().subscribe({
       next: (data) => {
-        // Filter AccessLevel = 2 users
+       
         this.users = data.filter(u => u.accessLevel === 2);
         console.log('AccessLevel=2 users:', this.users);
       },
@@ -35,7 +35,7 @@ export class DoctorNavbarComponent implements OnInit {
 
   onSelectUser(event: any) {
     const selectedUserId = event.target.value;
-   
+    localStorage.removeItem('selectedUserId');
     if (selectedUserId !== '') {
     localStorage.removeItem('selectedUserId');
   }

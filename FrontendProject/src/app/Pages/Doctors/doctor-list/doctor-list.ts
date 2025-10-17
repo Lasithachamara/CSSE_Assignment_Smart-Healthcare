@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DoctorService, Doctor } from '../../../services/doctor.service';
-import { InvoiceService } from '../../../services/Invoice.service';
-import { InvoiceHeader, InvoiceDetail } from '../../../Models/InvoiceWithDetailsDTO';
 
 
 @Component({
@@ -40,7 +38,6 @@ export class DoctorComponent implements OnInit {
   }
 
   bookAppointment(doctorId: number): void {
-    // You can later navigate to appointment booking page
     alert(`Booking appointment with Doctor ID: ${doctorId}`);
   }
 }

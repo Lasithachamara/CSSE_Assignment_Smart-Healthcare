@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ShowUsers } from './show-users';
+import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AddUserService } from '../../../services/add-user.service';
 
 describe('ShowUsers', () => {
   let component: ShowUsers;
@@ -8,9 +11,14 @@ describe('ShowUsers', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShowUsers]
-    })
-    .compileComponents();
+      imports: [
+        ShowUsers,
+        CommonModule,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
+      providers: [AddUserService]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ShowUsers);
     component = fixture.componentInstance;

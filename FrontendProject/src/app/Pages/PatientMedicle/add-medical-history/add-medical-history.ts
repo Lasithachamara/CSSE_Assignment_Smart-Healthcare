@@ -17,8 +17,8 @@ export class AddMedicalHistoryComponent {
     prescription: '',
   };
 
-  user: any;           // Current logged-in user
-  selectedUserId: number | null = null; // User selected by doctor
+  user: any;         
+  selectedUserId: number | null = null; 
   loading = false;
   message = '';
   error = '';
@@ -26,10 +26,9 @@ export class AddMedicalHistoryComponent {
   constructor(private medicalHistoryService: MedicalHistoryService) {}
 
   ngOnInit(): void {
-    // Get current logged-in user
+    
     this.user = JSON.parse(localStorage.getItem('currentUser') || '{}');
 
-    // ✅ If doctor (AccessLevel=3), get selectedUserId from localStorage
     if (this.user?.accessLevel === 3) {
       const storedUserId = localStorage.getItem('selectedUserId');
       this.selectedUserId = storedUserId ? parseInt(storedUserId, 10) : null;
@@ -46,7 +45,6 @@ export class AddMedicalHistoryComponent {
     this.error = '';
     this.message = '';
 
-    // ✅ Use selectedUserId if doctor, otherwise current user's id
     const userIdToUse = this.user?.accessLevel === 3
       ? this.selectedUserId || 0
       : this.user?.id || 0;

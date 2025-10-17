@@ -1,6 +1,5 @@
 ﻿using BackendProject.DTO;
 using BackendProject.Interfaces;
-using BackendProject.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackendProject.Controllers

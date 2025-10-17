@@ -17,7 +17,7 @@ export class ViewMedicalHistory implements OnInit {
   error = '';
   user: any;
 
-  // 🔹 For popup modal
+ 
   selectedRecord: MedicalHistory | null = null;
 
   constructor(private historyService: MedicalHistoryService , private router: Router) {}
@@ -26,11 +26,9 @@ export class ViewMedicalHistory implements OnInit {
     this.user = JSON.parse(localStorage.getItem('currentUser') || '{}');
 
     if (this.user?.accessLevel === 3) {
-      // Doctor: use selectedUserId from localStorage
       const storedUserId = localStorage.getItem('selectedUserId');
       this.userId = storedUserId ? parseInt(storedUserId, 10) : 0;
     } else {
-      // Normal user: use own ID
       this.userId = this.user?.id || 0;
     }
 
@@ -54,12 +52,10 @@ export class ViewMedicalHistory implements OnInit {
     });
   }
 
-  // 🔹 Open popup
   openDetails(record: MedicalHistory): void {
     this.selectedRecord = record;
   }
 
-  // 🔹 Close popup
   closeDetails(): void {
     this.selectedRecord = null;
   }

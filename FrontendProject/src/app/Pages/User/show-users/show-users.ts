@@ -19,7 +19,6 @@ export class ShowUsers implements AfterViewInit {
   selectedUserId: number | null = null;
   message = '';
   
-  // Modal properties
   showModal = false;
   selectedUser: User | null = null;
   newPassword = '';
@@ -32,7 +31,7 @@ export class ShowUsers implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Called after view initialization
+    
   }
 
   goToAddUser() {
@@ -70,7 +69,6 @@ export class ShowUsers implements AfterViewInit {
     this.passwordMessage = '';
     this.passwordSuccess = false;
     
-    // Generate barcode after modal is visible
     setTimeout(() => {
       this.generateBarcode(user.id.toString());
     }, 100);
@@ -92,15 +90,12 @@ export class ShowUsers implements AfterViewInit {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
     canvas.width = 300;
     canvas.height = 100;
 
-    // Clear canvas
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Generate simple barcode pattern (Code 39 style)
     const barcodeData = this.textToBarcode(text);
     const barWidth = 3;
     const startX = 20;
@@ -117,15 +112,13 @@ export class ShowUsers implements AfterViewInit {
       x += barWidth;
     }
 
-    // Draw text below barcode
     ctx.font = '14px Arial';
     ctx.textAlign = 'center';
     ctx.fillText(text, canvas.width / 2, startY + barHeight + 20);
   }
 
   textToBarcode(text: string): string {
-    // Simple barcode encoding (alternating pattern based on text)
-    let barcode = '101'; // Start pattern
+    let barcode = '101';
     
     for (let i = 0; i < text.length; i++) {
       const charCode = text.charCodeAt(i);
@@ -133,7 +126,7 @@ export class ShowUsers implements AfterViewInit {
       barcode += pattern;
     }
     
-    barcode += '101'; // End pattern
+    barcode += '101'; 
     return barcode;
   }
 
@@ -157,7 +150,6 @@ export class ShowUsers implements AfterViewInit {
     }
 
     if (this.selectedUser) {
-      // Call your service method to update password
       this.userService.updateUserPassword(this.selectedUser.id, this.newPassword).subscribe({
         next: () => {
           this.passwordMessage = 'Password updated successfully!';
