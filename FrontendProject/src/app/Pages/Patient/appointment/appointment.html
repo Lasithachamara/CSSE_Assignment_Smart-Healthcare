@@ -1,0 +1,68 @@
+<div class="page-content">
+  <div class="app-header">
+    <div class="logo">🏥 Smart Healthcare</div>
+    <div class="navbar">
+      <ul>
+        <li><a href="/patient-dashboard">Home</a></li>
+        <li><a href="/patient-appointment">Appointments</a></li>
+        <li><a href="/doctors">Doctors</a></li>
+        <li><a href="/PatientReports">Reports</a></li>
+      </ul>
+    </div>
+    <div class="user-info">
+      Welcome, {{ user?.firstName || 'User' }} {{ user?.lastName || '' }} |
+      <a href="/" class="logout-link">Logout</a>    </div>
+  </div>
+
+  <div class="nav-breadcrumb">
+    Dashboard > Appointment > View My Bookings
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+    <h3 style="color: #333;">My Appointments</h3>
+    <button class="btn btn-success" (click)="addAppointment()">+ Add Appointment</button>
+  </div>
+
+  <div class="data-table" *ngIf="(appointments?.length || 0) > 0; else noAppointments">
+    <table>
+      <thead>
+        <tr>
+          <th>Date & Time</th>
+          <th>Doctor</th>
+          <th>Department</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appt of appointments">
+          <td>
+            {{ appt.preferredDate ? (appt.preferredDate | date:'MMM dd, yyyy') : 'N/A' }}<br>
+            <small>{{ appt.availableTimeSlots || 'N/A' }}</small>
+          </td>
+          <td>{{ appt.doctorName || 'N/A' }}</td>
+          <td>{{ appt.departmentName || 'N/A' }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="showContactPopup()">Update</button>
+            <button class="btn btn-secondary" (click)="cancelAppointment(appt.id!)">Cancel</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noAppointments>
+    <p>No appointments found.</p>
+  </ng-template>
+
+  <button class="btn btn-secondary" (click)="goTo('BacktoDashboard')">Back to Dashboard</button>
+</div>
+
+
+<!-- Contact Popup -->
+<div class="popup-overlay" *ngIf="showPopup">
+  <div class="popup-box">
+    <h3>Contact Hospital Person</h3>
+    <p>Please contact the hospital representative to update your appointment details.</p>
+    <button class="btn btn-primary" (click)="closePopup()">OK</button>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+<div class="form-container">
+  <h2>Add New User</h2>
+  <form #addUserForm="ngForm" (ngSubmit)="onSubmit(addUserForm)">
+
+    <!-- NIC -->
+    <div class="form-group">
+      <label for="nic">NIC</label>
+      <input
+        id="nic"
+        name="nic"
+        [(ngModel)]="user.nic"
+        placeholder="Enter NIC (e.g., 972381950V or 123456789123)"
+        required
+        pattern="^([0-9]{9}[vVxX]|[0-9]{12})$"
+        #nicCtrl="ngModel"
+        type="text"
+      />
+      <div class="error" *ngIf="nicCtrl.invalid && nicCtrl.touched">
+        <small *ngIf="nicCtrl.errors?.['required']">NIC is required.</small>
+        <small *ngIf="nicCtrl.errors?.['pattern']">Enter a valid Sri Lankan NIC.</small>
+      </div>
+    </div>
+
+    <!-- Name -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        id="name"
+        name="name"
+        [(ngModel)]="user.name"
+        placeholder="Enter full name"
+        required
+        #nameCtrl="ngModel"
+        type="text"
+      />
+      <div class="error" *ngIf="nameCtrl.invalid && nameCtrl.touched">
+        Name is required.
+      </div>
+    </div>
+
+    <!-- Username -->
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input 
+        id="username" 
+        name="userName" 
+        [(ngModel)]="user.userName" 
+        placeholder="Enter username" 
+        required
+        #usernameCtrl="ngModel" 
+        type="text"
+      />
+      <div class="error" *ngIf="usernameCtrl.invalid && usernameCtrl.touched">
+        Username is required.
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        [(ngModel)]="user.email"
+        placeholder="Enter email"
+        required
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        #emailCtrl="ngModel"
+      />
+      <div class="error" *ngIf="emailCtrl.invalid && emailCtrl.touched">
+        <small *ngIf="emailCtrl.errors?.['required']">Email is required.</small>
+        <small *ngIf="emailCtrl.errors?.['pattern']">Enter a valid email.</small>
+      </div>
+    </div>
+
+    <!-- Mobile -->
+    <div class="form-group">
+      <label for="mobile">Mobile</label>
+      <input
+        id="mobile"
+        name="mobile"
+        type="text"
+        [(ngModel)]="user.mobile"
+        placeholder="Enter mobile number (07XXXXXXXX)"
+        required
+        pattern="^07[0-9]{8}$"
+        #mobileCtrl="ngModel"
+      />
+      <div class="error" *ngIf="mobileCtrl.invalid && mobileCtrl.touched">
+        <small *ngIf="mobileCtrl.errors?.['required']">Mobile number is required.</small>
+        <small *ngIf="mobileCtrl.errors?.['pattern']">Enter a valid Sri Lankan mobile number.</small>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        [(ngModel)]="user.password"
+        placeholder="Enter password"
+        required
+        minlength="6"
+        #passwordCtrl="ngModel"
+      />
+      <div class="error" *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
+        <small *ngIf="passwordCtrl.errors?.['required']">Password is required.</small>
+        <small *ngIf="passwordCtrl.errors?.['minlength']">Password must be at least 6 characters.</small>
+      </div>
+    </div>
+
+    <!-- User Level -->
+    <div class="form-group">
+      <label for="accessLevel">User Level</label>
+      <select 
+        id="accessLevel"
+        [(ngModel)]="selectedUserLevelId" 
+        [ngModelOptions]="{ standalone: true }" 
+        required 
+        #levelCtrl="ngModel"
+      >
+        <option value="">-- Select User Level --</option>
+        <option *ngFor="let level of UserLevel" [value]="level.id">{{ level.userType }}</option>
+      </select>
+      <div class="error" *ngIf="levelCtrl.invalid && levelCtrl.touched">
+        User Level is required.
+      </div>
+    </div>
+
+    <!-- Active Status -->
+    <div class="form-group checkbox">
+      <label>
+        <input
+          type="checkbox"
+          name="isActive"
+          [(ngModel)]="user.activeStatus"
+          required
+          #isActiveCtrl="ngModel"
+        />
+        Active User
+      </label>
+      <div class="error" *ngIf="isActiveCtrl.invalid && isActiveCtrl.touched">
+        Please select active status.
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="submit-btn" [disabled]="addUserForm.invalid">Add User</button>
+  </form>
+
+  <p class="message">{{ message }}</p>
+</div>

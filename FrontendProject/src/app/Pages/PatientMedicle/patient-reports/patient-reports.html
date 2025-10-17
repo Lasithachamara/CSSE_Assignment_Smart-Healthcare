@@ -1,0 +1,44 @@
+<div class="page-content">
+  <div class="app-header">
+    <div class="logo">🏥 Smart Healthcare</div>
+    <div class="navbar">
+      <ul>
+        <li><a href="/patient-dashboard">Home</a></li>
+        <li><a href="/patient-appointment">Appointments</a></li>
+        <li><a href="/doctors">Doctors</a></li>
+        <li><a href="/PatientReports">Reports</a></li>
+      </ul>
+    </div>
+    <div class="user-info">
+      Welcome, {{ user?.firstName || 'User' }} {{ user?.lastName || '' }} |
+      <a href="/" class="logout-link">Logout</a>
+    </div>
+  </div>
+
+  <div class="nav-breadcrumb">
+    Dashboard > Reports > My Reports
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+    <h3 style="color: #333;">My Medical Reports</h3>
+    <!-- <button class="btn btn-success" (click)="addReport()">+ Add Report</button> -->
+  </div>
+
+  <div class="report-grid" *ngIf="medicalReports.length > 0; else noReports">
+    <div class="report-card" *ngFor="let report of medicalReports">
+      <div class="report-title">{{ report.reportName }}</div>
+      <div class="report-date">{{ report.uploadedOn | date:'MMM dd, yyyy' }}</div>
+      <div class="report-type">{{ report.fileType }}</div>
+      <div class="report-actions">
+        <button class="btn btn-primary" (click)="viewReport(report)">View</button>
+        <button class="btn btn-secondary" (click)="downloadReport(report)">Download</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noReports>
+    <p>No medical reports found.</p>
+  </ng-template>
+
+  <button class="btn btn-secondary" (click)="goTo('BacktoDashboard')">Back to Dashboard</button>
+</div>

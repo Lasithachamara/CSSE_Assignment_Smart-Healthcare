@@ -1,0 +1,26 @@
+<div class="page-content">
+  
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+    <h3 style="color: #333;">Medical Reports</h3>
+    <!-- <button class="btn btn-success" (click)="addReport()">+ Add Report</button> -->
+  </div>
+
+  <div class="report-grid" *ngIf="medicalReports.length > 0; else noReports">
+    <div class="report-card" *ngFor="let report of medicalReports">
+      <div class="report-title">{{ report.reportName }}</div>
+      <div class="report-date">{{ report.uploadedOn | date:'MMM dd, yyyy' }}</div>
+      <div class="report-type">{{ report.fileType }}</div>
+      <div class="report-actions">
+        <button class="btn btn-primary" (click)="viewReport(report)">View</button>
+        <button class="btn btn-secondary" (click)="downloadReport(report)">Download</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noReports>
+    <p>No medical reports found.</p>
+  </ng-template>
+
+  <button class="btn btn-secondary" (click)="goTo('BacktoDashboard')">Back to Home</button>
+</div>

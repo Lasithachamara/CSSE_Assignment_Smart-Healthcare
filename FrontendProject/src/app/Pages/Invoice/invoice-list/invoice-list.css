@@ -1,0 +1,234 @@
+.Invoice-container{
+  background: linear-gradient(160deg, #fbf7f4 0%, #f6efe8 100%);
+  border-radius: 18px;
+  box-shadow: 6px 8px 24px rgba(60, 50, 40, 0.08);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, "Helvetica Neue", Arial;
+  margin-top: 5%;
+}
+h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  text-shadow: #ddd;
+  text-align: center;
+}
+
+.table-container {
+  overflow-x: auto;
+  align-content: center;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.8rem;
+  background: transparent;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.invoice-table th,
+.invoice-table td {
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(70, 55, 40, 0.06);
+  font-size: 0.95rem;
+}
+
+.invoice-table thead th {
+  background: linear-gradient(120deg, #e9b86d 0%, #d79b45 100%);
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.6px;
+  border-bottom: none;
+  padding: 0.85rem;
+}
+
+.invoice-table tbody tr {
+  background: linear-gradient(180deg, #fffdfa 0%, #fff9f2 100%);
+  transition: transform 150ms ease, background 150ms ease;
+}
+
+.invoice-table tbody tr:nth-child(even) {
+  background: linear-gradient(180deg, #f9f9f9 0%, #f6f6f6 100%);
+}
+
+.invoice-table tbody tr[style*="cursor: pointer"]:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(180deg, #fffefa, #fff6ee);
+}
+
+.invoice-table tbody tr[style*="cursor: pointer"] {
+  cursor: pointer;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  color: white;
+}
+
+.status.active {
+  background-color: #4CAF50;
+}
+
+.status.inactive {
+  background-color: #f44336;
+}
+button {
+  background: linear-gradient(120deg, #e9b86d 0%, #d79b45 100%);
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1.05rem;
+  border-radius: 28px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(215, 155, 77, 0.18);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+button:hover {
+  transform: translateY(-3px); box-shadow: 0 12px 24px rgba(215,155,77,0.2);
+}
+.tables-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.table-container {
+  flex: 1;
+  overflow-x: auto;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoice-table th, .invoice-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+.button-row {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.button-container-left {
+  text-align: left;
+}
+
+.button-container-right {
+  text-align: right;
+}
+
+button {
+  margin: 0 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  border: 1px solid #333;
+  background-color: white;
+  color: #333;
+  border-radius: 4px;
+}
+
+button.active {
+  background-color: #333;
+  color: white;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.items-table th, .items-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.tab-container {
+  display: flex;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  background: linear-gradient(120deg, #e9b86d 0%, #d79b45 100%);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s;
+  outline: none;
+}
+
+.tab-button:hover {
+  border-bottom: 2px solid #aaa;
+}
+
+.tab-button.active {
+  border-bottom: 2px solid #5b3501;
+  color: #5b3501;
+}
+.search-container {
+  max-width: 400px;
+  margin-bottom: 1.5rem;
+}
+
+.search-container input[type="text"] {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
+}
+
+.search-container input[type="text"]:focus {
+  border-color: #5b3501;  
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+

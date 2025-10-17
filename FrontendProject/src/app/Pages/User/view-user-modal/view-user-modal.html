@@ -1,0 +1,22 @@
+<div id="userModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+
+    <h2>User Details</h2>
+
+    <p><strong>Username:</strong> {{ user.userName }}</p>
+    <p><strong>First Name:</strong> {{ user.firstName }}</p>
+    <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Mobile:</strong> {{ user.mobile }}</p>
+
+    <div class="password-section">
+      <label>New Password:</label>
+      <input type="password" [(ngModel)]="newPassword" placeholder="Enter new password" />
+      <button (click)="updatePassword()">Update Password</button>
+    </div>
+
+    <!-- <h3>QR Code</h3>
+    <img [src]="qrCodeDataUrl" alt="QR Code" /> -->
+  </div>
+</div>

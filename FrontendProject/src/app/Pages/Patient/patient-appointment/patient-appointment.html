@@ -1,0 +1,177 @@
+<div class="page-content">
+  <!-- 🔹 Header Section -->
+  <div class="app-header">
+    <div class="logo">🏥 Smart Healthcare</div>
+    <div class="navbar">
+      <ul>
+        <li><a href="/patient-dashboard">Home</a></li>
+        <li><a href="/patient-appointment">Appointments</a></li>
+        <li><a href="/doctors">Doctors</a></li>
+        <li><a href="/PatientReports">Reports</a></li>
+      </ul>
+    </div>
+    <div class="user-info">
+      Welcome, {{ user?.firstName || 'User' }} {{ user?.lastName || '' }} |
+      <a href="/" class="logout-link">Logout</a>
+    </div>
+  </div>
+
+  <!-- 🔹 Breadcrumb -->
+  <div class="nav-breadcrumb">Dashboard > Appointment</div>
+
+  <!-- 🔹 Filter Section -->
+  <div class="filters-section">
+    <h4 style="color: #333; margin-bottom: 15px;">🔍 Filter Available Appointments</h4>
+    <div class="filters-row">
+      <div class="form-group">
+        <label>Doctor Name</label>
+        <input 
+          type="text" 
+          class="form-input" 
+          [(ngModel)]="filterCriteria.doctorName"
+          placeholder="Search by doctor name"
+          (input)="onFilterChange()">
+      </div>
+      
+      <div class="form-group">
+        <label>Specialization</label>
+        <select class="form-input" [(ngModel)]="filterCriteria.departmentName" (change)="onFilterChange()">
+          <option value="">All Specializations</option>
+          <option value="Cardiology">Cardiology</option>
+          <option value="General Medicine">General Medicine</option>
+          <option value="Pediatrics">Pediatrics</option>
+          <option value="Orthopedic">Orthopedic</option>
+          <option value="Neurology">Neurology</option>
+          <option value="Dermatology">Dermatology</option>
+          <option value="Psychiatry">Psychiatry</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>Preferred Date</label>
+        <input 
+          type="date" 
+          class="form-input" 
+          [(ngModel)]="filterCriteria.preferredDate"
+          (change)="onFilterChange()">
+      </div>
+      
+      <div class="form-group">
+        <label>Status</label>
+        <select class="form-input" [(ngModel)]="filterCriteria.status" (change)="onFilterChange()">
+          <option value="">All Status</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Pending">Pending</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <button class="btn btn-primary" (click)="applyFilters()">
+        🔍 Search Available Slots
+      </button>
+      <button class="btn btn-secondary" (click)="clearFilters()">
+        🔄 Clear Filters
+      </button>
+    </div>
+  </div>
+
+  <!-- 🔹 Header + Add Button -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+    <h3 style="color: #333;">
+      My Appointments 
+      <span style="font-size: 0.9rem; color: #666; font-weight: normal;">
+        ({{ filteredAppointments.length }} found)
+      </span>
+    </h3>
+    <button class="btn btn-success" (click)="addAppointment()">
+      + Add Appointment
+    </button>
+  </div>
+
+  <!-- 🔹 Appointment Table -->
+  <div class="slots-table-container" *ngIf="filteredAppointments.length > 0; else noAppointments">
+    <table class="slots-table">
+      <thead>
+        <tr>
+          <th>👨‍⚕️ Doctor & Specialization</th>
+          <th>📅 Date</th>
+          <th>⏰ Time Slot</th>
+          <th>📋 Status</th>
+          <th>⚙️ Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appt of filteredAppointments">
+          <td>
+            <div class="doctor-info">
+              <div class="doctor-avatar">
+                {{ getInitials(appt.doctorName) }}
+              </div>
+              <div class="doctor-details">
+                <div class="doctor-name">{{ appt.doctorName || 'N/A' }}</div>
+                <div class="doctor-specialty">{{ appt.departmentName || 'General' }}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="date-info">
+              {{ appt.preferredDate | date:'MMMM dd, yyyy' }}
+              <span class="day-name">{{ appt.preferredDate | date:'EEEE' }}</span>
+            </div>
+          </td>
+          <td class="time-slot-cell">
+            <div class="time-range">{{ appt.availableTimeSlots || 'N/A' }}</div>
+          </td>
+          <td>
+            <span [ngClass]="{
+              'status-available': appt.status === 'Confirmed',
+              'status-limited': appt.status === 'Pending',
+              'status-cancelled': appt.status === 'Cancelled',
+              'status-completed': appt.status === 'Completed'
+            }">
+              {{ appt.status || 'Pending' }}
+            </span>
+          </td>
+          <td>
+            <button 
+              class="btn-book" 
+              (click)="updateAppointment(appt.id!)"
+              *ngIf="appt.status !== 'Cancelled' && appt.status !== 'Completed'">
+              ✏️ Update
+            </button>
+            <button 
+              class="btn-danger" 
+              (click)="cancelAppointment(appt.id!)"
+              *ngIf="appt.status !== 'Cancelled' && appt.status !== 'Completed'">
+              ❌ Cancel
+            </button>
+            <button 
+              class="btn-info" 
+              (click)="viewDetails(appt)">
+              👁️ View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 🔹 No Appointments Template -->
+  <ng-template #noAppointments>
+    <div class="no-slots">
+      <p>📭 No appointments found matching your criteria.</p>
+      <button class="btn btn-primary" (click)="clearFilters()">
+        Clear Filters
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- 🔹 Footer Buttons -->
+  <div style="margin-top: 30px; text-align: center;">
+    <button class="btn btn-secondary" (click)="goTo('BacktoDashboard')">
+      ⬅️ Back to Dashboard
+    </button>
+  </div>
+</div>

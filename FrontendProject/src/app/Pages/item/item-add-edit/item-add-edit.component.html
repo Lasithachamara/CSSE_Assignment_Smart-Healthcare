@@ -1,0 +1,76 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Edit Item' : 'Add Item' }}</h2>
+
+  <form #itemForm="ngForm" (ngSubmit)="onSubmit(itemForm)" class="form-container" novalidate>
+
+    <label for="itemName">Item Name</label>
+    <input
+      type="text"
+      id="itemName"
+      name="itemName"
+      [(ngModel)]="model.name"
+      placeholder="Enter Item Name"
+      required
+      maxlength="200"
+      #name="ngModel"
+    />
+    <div class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <small *ngIf="name.errors?.['required']">Item Name is required.</small>
+      <small *ngIf="name.errors?.['maxlength']">Item Name cannot exceed 200 characters.</small>
+    </div>
+
+    <label for="price">Price</label>
+    <input
+      type="number"
+      id="price"
+      name="price"
+      [(ngModel)]="model.price"
+      placeholder="Enter Item Price"
+      required
+      min="0.01"
+      step="0.01"
+      #price="ngModel"
+    />
+    <div class="error" *ngIf="price.invalid && (price.dirty || price.touched)">
+      <small *ngIf="price.errors?.['required']">Price is required.</small>
+      <small *ngIf="price.errors?.['min']">Price must be at least 0.01.</small>
+    </div>
+
+    <label for="quantity">Quantity</label>
+    <input
+      type="number"
+      id="quantity"
+      name="quantity"
+      [(ngModel)]="model.quantity"
+      placeholder="Enter Item Quantity"
+      required
+      min="1"
+      #quantity="ngModel"
+    />
+    <div class="error" *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)">
+      <small *ngIf="quantity.errors?.['required']">Quantity is required.</small>
+      <small *ngIf="quantity.errors?.['min']">Quantity must be at least 1.</small>
+    </div>
+
+    <label for="reorderLv">Reorder Level</label>
+    <input
+      type="number"
+      id="reorderLv"
+      name="reorderLv"
+      [(ngModel)]="model.reorderLv"
+      placeholder="Enter Reorder Level"
+      required
+      min="1"
+      #reorderLv="ngModel"
+    />
+    <div class="error" *ngIf="reorderLv.invalid && (reorderLv.dirty || reorderLv.touched)">
+      <small *ngIf="reorderLv.errors?.['required']">Reorder Level is required.</small>
+      <small *ngIf="reorderLv.errors?.['min']">Reorder Level must be at least 1.</small>
+    </div>
+
+    <button type="submit">
+      {{ isEditMode ? 'Update Item' : 'Add Item' }}
+    </button>
+    <button type="button" (click)="resetForm(itemForm)">Clear</button>
+  </form>
+</div>

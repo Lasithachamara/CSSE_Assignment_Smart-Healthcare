@@ -1,0 +1,114 @@
+<div class="page-container">
+  <div class="table-header">
+    <h2>Patient Check-In</h2>
+    <!-- <button class="home-btn" (click)="goToHome()">🏠 Home</button> -->
+  </div>
+
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <div class="filter-group">
+      <label>Filter by Status:</label>
+      <select [(ngModel)]="filterStatus" (change)="applyFilter()" class="filter-input">
+        <option value="">All Appointments</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Completed">Completed</option>
+        <option value="Pending">Pending</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Search Patient:</label>
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="applyFilter()"
+        placeholder="Search by patient name..."
+        class="filter-input">
+    </div>
+  </div>
+
+  <!-- Appointments Table -->
+  <table class="list-table" *ngIf="filteredAppointments.length > 0; else noAppointments">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Patient Name</th>
+        <th>Doctor</th>
+        <th>Department</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Check-In</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of filteredAppointments">
+        <td>{{ appointment.id }}</td>
+        <td>{{ appointment.patientName || 'N/A' }}</td>
+        <td>{{ appointment.doctorName || 'N/A' }}</td>
+        <td>{{ appointment.departmentName || 'N/A' }}</td>
+        <td>{{ appointment.preferredDate | date:'MMM dd, yyyy' }}</td>
+        <td>{{ appointment.availableTimeSlots || 'N/A' }}</td>
+        <td>
+          <span [ngClass]="{
+            'status-confirmed': appointment.status === 'Confirmed',
+            'status-completed': appointment.status === 'Completed',
+            'status-pending': appointment.status === 'Pending',
+            'status-cancelled': appointment.status === 'Cancelled'
+          }">
+            {{ appointment.status || 'Pending' }}
+          </span>
+        </td>
+        <td>
+          <span [ngClass]="{
+            'checkin-yes': appointment.checkIn === true,
+            'checkin-no': appointment.checkIn !== true
+          }">
+            {{ appointment.checkIn ? 'Yes' : 'No' }}
+          </span>
+        </td>
+        <td class="actions-cell">
+          <button 
+            class="edit" 
+            (click)="checkInPatient(appointment)"
+            [disabled]="appointment.status !== 'Confirmed' || appointment.checkIn === true"
+            [class.disabled]="appointment.status !== 'Confirmed' || appointment.checkIn === true">
+            ✓ Check In
+          </button>
+          <button 
+            class="delete" 
+            (click)="viewDetails(appointment)">
+            👁️ View
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- No Appointments Message -->
+  <ng-template #noAppointments>
+    <div class="no-data">
+      <p>No appointments found.</p>
+    </div>
+  </ng-template>
+
+  <!-- Summary Section -->
+  <div class="summary-section" *ngIf="appointments.length > 0">
+    <div class="summary-card">
+      <span class="summary-label">Total Appointments:</span>
+      <span class="summary-value">{{ appointments.length }}</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-label">Confirmed:</span>
+      <span class="summary-value confirmed">{{ getCountByStatus('Confirmed') }}</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-label">Checked In:</span>
+      <span class="summary-value completed">{{ getCheckedInCount() }}</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-label">Completed:</span>
+      <span class="summary-value completed">{{ getCountByStatus('Completed') }}</span>
+    </div>
+  </div>
+</div>

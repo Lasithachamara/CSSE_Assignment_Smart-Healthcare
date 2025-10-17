@@ -1,0 +1,115 @@
+<div class="page-content">
+  <div class="form-container">
+    <h3>User Registration</h3>
+
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" class="form-input" [(ngModel)]="user.firstName" name="firstName" required />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" class="form-input" [(ngModel)]="user.lastName" name="lastName" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>NIC</label>
+          <input type="text" class="form-input" [(ngModel)]="user.nic" name="nic" required />
+        </div>
+        <div class="form-group">
+          <label>Date of Birth</label>
+          <input type="date" class="form-input" [(ngModel)]="user.dateOfBirth" name="dateOfBirth" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Gender</label>
+          <select class="form-input" [(ngModel)]="user.gender" name="gender" required>
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Blood Type</label>
+          <select class="form-input" [(ngModel)]="user.bloodType" name="bloodType">
+            <option value="">Select</option>
+            <option>O+</option>
+            <option>O-</option>
+            <option>A+</option>
+            <option>A-</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Contact Number</label>
+          <input type="text" class="form-input" name="contactNumber" [(ngModel)]="user.contactNumber" required />
+        </div>
+
+        <div class="form-group">
+          <label>Emergency Contact No</label>
+          <input type="text" class="form-input" name="emergencyContactNo" [(ngModel)]="user.emergencyContactNo" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Address</label>
+        <textarea class="form-input" rows="2" [(ngModel)]="user.address" name="address"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" class="form-input" [(ngModel)]="user.email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label>Mobile</label>
+          <input type="tel" class="form-input" [(ngModel)]="user.mobile" name="mobile" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" class="form-input" [(ngModel)]="user.userName" name="userName" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-input" [(ngModel)]="user.password" name="password" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" class="form-input" [(ngModel)]="confirmPassword" name="confirmPassword" required />
+        </div>
+
+        <div class="form-group">
+          <label>User Type (Access Level)</label>
+          <select class="form-input" name="accessLevel" [(ngModel)]="user.accessLevel" required>
+            <option *ngFor="let level of accessLevels" [value]="level.value">
+              {{ level.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-top: 30px;">
+        <button type="submit" class="btn btn-success" [disabled]="registerForm.invalid || loading">
+          {{ loading ? 'Registering...' : 'Register' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="goTo('login')">Cancel</button>
+      </div>
+
+      <p class="message">{{ message }}</p>
+    </form>
+  </div>
+</div>

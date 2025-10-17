@@ -1,0 +1,50 @@
+<div class="page-content">
+  <!-- ✅ Header -->
+  <div class="app-header">
+    <div class="logo">🏥 Smart Healthcare</div>
+    <div class="navbar">
+      <ul>
+        <li><a href="/patient-dashboard">Home</a></li>
+        <li><a href="/patient-appointment">Appointments</a></li>
+        <li><a href="/doctors">Doctors</a></li>
+        <li><a href="/PatientReports">Reports</a></li>
+      </ul>
+    </div>
+
+    <div class="user-info">
+      Welcome, {{ user?.firstName || 'User' }} {{ user?.lastName || '' }} |
+      <a href="/" class="logout-link">Logout</a>
+    </div>
+  </div>
+
+  <div class="nav-breadcrumb">
+    Dashboard > Doctors > All Doctors
+  </div>
+
+  <!-- ✅ Title -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+    <h3 style="color: #333;">Available Doctors</h3>
+  </div>
+
+  <!-- ✅ Loading / Error -->
+  <div *ngIf="loading">Loading doctors...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- ✅ Doctor Cards -->
+  <div *ngIf="!loading && doctors.length > 0; else noDoctors" class="doctor-grid">
+    <div *ngFor="let doc of doctors" class="doctor-card">
+      <div class="doctor-avatar">👨‍⚕️</div>
+      <h4>{{ doc.name }}</h4>
+      <p><strong>Department:</strong> {{ doc.departmentName || 'N/A' }}</p>
+      <p><strong>Specialization:</strong> {{ doc.specialization || 'N/A' }}</p>
+      <p><strong>Contact:</strong> {{ doc.contactNumber || 'N/A' }}</p>
+
+      <!-- <button class="btn btn-success" (click)="bookAppointment(doc.id)">Book Appointment</button> -->
+    </div>
+  </div>
+
+  <!-- ✅ Empty State -->
+  <ng-template #noDoctors>
+    <p>No doctors found.</p>
+  </ng-template>
+</div>

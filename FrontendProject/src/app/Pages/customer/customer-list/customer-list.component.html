@@ -1,0 +1,40 @@
+<button type="submit" class="home-btn" (click)="goToDashboard()"> Management Dashboard</button>
+<div class="customer-list-container">
+  <div class="customer-list-header">
+    <h2>Customer List</h2>
+    <button class="add-btn" (click)=addCustomer()>+ Add Customer</button>
+  </div>
+
+  <table class="customer-table" *ngIf="!loading && customers.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>NIC</th>
+        <th>Name</th>
+        <th>Mobile No</th>
+        <th>Created By</th>
+        <th>Created Date</th>
+        <th>Active Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{ customer.id }}</td>
+        <td>{{ customer.nic }}</td>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.mobileNo }}</td>
+        <td>{{ customer.createdBy}}</td>
+        <td>{{ customer.createdDate | date: 'short' }}</td>
+        <td>{{ customer.isActive }}</td>
+        <td>
+          <button class="action-btn edit" (click)="editCustomer(customer.id)">Edit</button>
+          <button class="action-btn delete" (click)="deleteCustomer(customer.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && customers.length === 0" class="empty">No customers found.</div>
+  <div *ngIf="loading" class="loading">Loading...</div>
+</div>

@@ -1,0 +1,29 @@
+<div class="center-container">
+  <div class="report-upload-container">
+    <h2>Add Medical Report</h2>
+
+    <form (ngSubmit)="uploadReport()" class="upload-form">
+
+        <!-- Patient ID input is shown only for users who are NOT AccessLevel 2 -->
+    <div class="form-group" *ngIf="userAccessLevel !== 2">
+      <label>Patient ID</label>
+      <input type="number" [(ngModel)]="patientId" name="patientId" required placeholder="Enter patient ID" class="form-input">
+    </div>
+    
+      <div class="form-group">
+        <label>Choose PDF or Image</label>
+        <input type="file" (change)="onFileSelected($event)" accept=".pdf,image/*" class="form-input">
+      </div>
+
+      <button type="submit" [disabled]="isLoading" class="btn btn-primary">Upload</button>
+    </form>
+
+    <div *ngIf="message" class="message">
+      {{ message }}
+    </div>
+
+    <div *ngIf="isLoading" class="loading">
+      Uploading...
+    </div>
+  </div>
+</div>

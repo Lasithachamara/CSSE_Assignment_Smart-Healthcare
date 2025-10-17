@@ -1,0 +1,25 @@
+<nav class="navbar">
+
+  <div class="user-select" *ngIf="users && users.length > 0">
+    <label for="userSelect">Select User:</label>
+    <select id="userSelect" (change)="onSelectUser($event)">
+      <option value="" disabled selected>Select User</option>
+      <option *ngFor="let user of users" [value]="user.id">{{ user.firstName }}</option>
+    </select>
+  </div>
+  <ul class="navbar-menu">
+    <!-- ✅ Patient Management dropdown -->
+    <li class="dropdown" (mouseenter)="toggleDropdown('Patient', true)" 
+        (mouseleave)="toggleDropdown('Patient', false)">
+      <a class="dropdown-toggle">Patient Management &#x25BE;</a>
+      <ul class="dropdown-menu" [class.show]="dropdownOpen === 'Patient'">
+        <li><a (click)="goToMedicalHistory()" routerLinkActive="active">View Medical History</a></li>
+        <li><a (click)="goToPatientReports()" routerLinkActive="active">View Patient Reports</a></li>
+        <li><a (click)="goToaddmedicalreport()" routerLinkActive="active">Add Medical Report</a></li>
+        <li><a (click)="goToaddmedicalhistory()" routerLinkActive="active">Add Medical History</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  
+</nav>

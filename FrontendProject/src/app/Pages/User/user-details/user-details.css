@@ -1,0 +1,170 @@
+/* Container - matches form & list style */
+.container {
+  max-width: 450px;
+  margin: 2.2rem auto;
+  padding: 1.6rem 2rem;
+  background: linear-gradient(160deg, #fbf7f4 0%, #f6efe8 100%);
+  border-radius: 18px;
+  box-shadow: 6px 8px 24px rgba(60, 50, 40, 0.08);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #4a392b;
+  text-align: left;
+  position: relative;
+}
+
+/* Form groups */
+.user-details-form .form-group {
+  margin-bottom: 1.3rem;
+}
+
+/* Labels */
+.user-details-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6b5543;
+}
+
+/* Readonly inputs */
+input[readonly] {
+  background: #fffdfa;
+  border: 2px solid rgba(107, 85, 67, 0.3);
+  border-radius: 18px;
+  padding: 0.7rem 1rem;
+  font-size: 0.95rem;
+  color: #4a392b;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+/* Inputs */
+.user-details-form .form-group input[type="text"],
+.user-details-form .form-group input[type="password"],
+.user-details-form .form-group input[type="number"],
+.user-details-form .form-group select,
+.user-details-form .form-group input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 2px solid rgba(107, 85, 67, 0.3);
+  border-radius: 18px;
+  font-size: 0.95rem;
+  background: #fffdfa;
+  color: #4a392b;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.user-details-form .form-group input[type="text"]:focus,
+.user-details-form .form-group input[type="password"]:focus,
+.user-details-form .form-group input[type="number"]:focus,
+.user-details-form .form-group select:focus, 
+.user-details-form .form-group input:focus{
+  outline: none;
+  border-color: #d79b45;
+  box-shadow: 0 0 10px rgba(215, 155, 77, 0.4);
+  background: #fff9f2;
+}
+
+/* Checkbox group */
+.checkbox-group,
+.user-details-form .form-group.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.user-details-form .form-group.checkbox label {
+  margin-bottom: 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #6b5543;
+}
+
+input[type="checkbox"] {
+  margin-right: 8px;
+  width: auto;
+  height: auto;
+}
+
+/* Password section divider */
+.password-section {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(70, 55, 40, 0.06);
+}
+
+/* Button row layout */
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* Edit button */
+.btn-edit {
+  background: linear-gradient(120deg, #7db387 0%, #679c74 100%);
+  color: white;
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  transition: transform 120ms ease;
+}
+.btn-edit:hover {
+  transform: translateY(-2px);
+}
+
+/* Save button */
+.btn-save {
+  background: linear-gradient(120deg, #e9b86d 0%, #d79b45 100%);
+  color: white;
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(215, 155, 77, 0.18);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.btn-save:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(215, 155, 77, 0.2);
+}
+
+/* Message styling */
+.message {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b5b4a;
+}
+
+/* Responsive tweak */
+@media (max-width: 480px) {
+  .container {
+    margin: 1rem 1rem;
+    padding: 1.3rem 1.2rem;
+  }
+}
+
+
+select[formControlName="states"] {
+  width: 100%;          
+  padding: 8px 12px;    
+  border-radius: 6px;   
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box; 
+  appearance: none;     
+  background: white url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5'><path fill='%23333' d='M0 0l5 5 5-5z'/></svg>") no-repeat right 12px center;
+  background-size: 10px 5px;
+}
+
+.form-group {
+  max-width: 300px; 
+  margin-bottom: 1rem;
+}

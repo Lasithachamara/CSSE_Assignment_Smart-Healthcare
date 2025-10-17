@@ -1,0 +1,61 @@
+<div class="page-content">
+  <!-- <div class="app-header">
+    <div class="logo">🏥 Smart Healthcare</div>
+    <div class="navbar">
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/medical-history">Medical History</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="nav-breadcrumb">Dashboard > Medical Records > Add Medical History</div> -->
+
+  <div class="form-container">
+    <h2>Add Medical History</h2>
+
+    <form (ngSubmit)="submitForm()" #historyForm="ngForm">
+      <div class="form-group">
+        <label>Title <span class="required">*</span></label>
+        <input
+          type="text"
+          name="title"
+          [(ngModel)]="medicalHistory.title"
+          required
+          placeholder="Enter medical history title"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Description <span class="required">*</span></label>
+        <textarea
+          name="description"
+          [(ngModel)]="medicalHistory.description"
+          required
+          rows="4"
+          placeholder="Enter medical history details"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Prescription</label>
+        <textarea
+          name="prescription"
+          [(ngModel)]="medicalHistory.prescription"
+          rows="3"
+          placeholder="Enter prescription (optional)"
+        ></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          {{ loading ? 'Saving...' : 'Add Medical History' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+      </div>
+
+      <div *ngIf="message" class="success-message">{{ message }}</div>
+      <div *ngIf="error" class="error-message">{{ error }}</div>
+    </form>
+  </div>
+</div>

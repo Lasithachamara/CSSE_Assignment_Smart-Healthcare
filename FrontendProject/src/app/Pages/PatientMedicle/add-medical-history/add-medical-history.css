@@ -1,0 +1,79 @@
+.form-container {
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  max-width: 600px;
+  margin: 30px auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #004aad;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.required {
+  color: red;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #004aad;
+  box-shadow: 0 0 5px rgba(0, 74, 173, 0.3);
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #004aad;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #999;
+  color: white;
+  margin-left: 10px;
+}
+
+.success-message {
+  color: green;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}

@@ -1,0 +1,74 @@
+<button type="button" class="home-btn" (click)="goToDashboard()">Management Dashboard</button>
+
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Edit Customer' : 'Add Customer' }}</h2>
+
+  <form #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)" novalidate>
+
+    <!-- NIC -->
+    <div class="form-group">
+  <label for="nic">NIC:</label>
+      <input
+          id="nic"
+          type="text"
+          [(ngModel)]="customer.nic"
+          name="nic"
+          placeholder="Enter NIC Number"
+          required
+          pattern="^([0-9]{9}[VXvx]|[0-9]{12})$"
+          #nic="ngModel"
+          />
+          <div class="error" *ngIf="nic.invalid && (nic.dirty || nic.touched)">
+          <small *ngIf="nic.errors?.['required']">NIC is required.</small>
+          <small *ngIf="nic.errors?.['pattern']">
+            Enter a valid Sri Lankan NIC (e.g., 972381950V or 199238195012).
+        </small>
+      </div>
+    </div>
+
+
+    <!-- Name -->
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        id="name"
+        type="text"
+        [(ngModel)]="customer.name"
+        name="name"
+        placeholder="Enter Name"
+        required
+        minlength="3"
+        #name="ngModel"
+      />
+      <div class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+        <small *ngIf="name.errors?.['required']">Name is required.</small>
+      </div>
+    </div>
+
+    <!-- Mobile Number -->
+    <div class="form-group">
+      <label for="mobileNo">Mobile No:</label>
+      <input
+          id="mobileNo"
+          type="text"
+          [(ngModel)]="customer.mobileNo"
+          name="mobileNo"
+          placeholder="Enter Mobile Number"
+          required
+          pattern="^07[0-9]{8}$"
+          #mobileNo="ngModel"
+          />
+      <div class="error" *ngIf="mobileNo.invalid && (mobileNo.dirty || mobileNo.touched)">
+      <small *ngIf="mobileNo.errors?.['required']">Mobile number is required.</small>
+      <small *ngIf="mobileNo.errors?.['pattern']">
+          Enter a valid Sri Lankan mobile number (e.g., 0721234567).
+      </small>
+    </div>
+
+    </div>
+
+    <button type="submit" class="submit-btn">
+      {{ isEditMode ? 'Update' : 'Create' }}
+    </button>
+  </form>
+</div>

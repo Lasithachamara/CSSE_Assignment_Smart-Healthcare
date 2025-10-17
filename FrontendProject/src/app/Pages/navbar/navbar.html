@@ -1,0 +1,30 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a (click)="goHome()" class="navbar-item">Home </a>
+  </div>
+
+  <ul class="navbar-menu">
+
+
+    <li class="dropdown" (mouseenter)="toggleDropdown('customer', true)" (mouseleave)="toggleDropdown('customer', false)">
+      <a  class="dropdown-toggle">User Management &#x25BE;</a>
+      <ul class="dropdown-menu" [class.show]="dropdownOpen === 'customer'">
+        <li><a (click)="goToAddUser()" routerLinkActive="active">Add User</a></li>
+        <li><a (click)="goToUserList()" routerLinkActive="active">User List</a></li>
+      </ul>
+    </li>
+
+
+    <li class="dropdown" (mouseenter)="toggleDropdown('item', true)" (mouseleave)="toggleDropdown('item', false)">
+      <a  class="dropdown-toggle">patient Management &#x25BE;</a>
+      <ul class="dropdown-menu" [class.show]="dropdownOpen === 'item'">
+        <li><a (click)="goTopatientCheckIn()" routerLinkActive="active">patient check in</a></li>
+        <li><a (click)="goTopatientAppointmentConfirm()" routerLinkActive="active">appointment confirmation</a></li>
+      </ul>
+    </li>
+
+    
+    <li><a (click)="goToLogin()" routerLinkActive="active">Log Out</a></li>
+
+  </ul>
+</nav>

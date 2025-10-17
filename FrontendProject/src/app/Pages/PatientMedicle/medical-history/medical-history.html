@@ -1,0 +1,66 @@
+<div class="page-content">
+  <div class="app-header">
+    <div class="logo">🏥 Smart Healthcare</div>
+    <div class="navbar">
+      <ul>
+        <li><a href="/patient-dashboard">Home</a></li>
+        <li><a href="/patient-appointment">Appointments</a></li>
+        <li><a href="/doctors">Doctors</a></li>
+        <li><a href="/PatientReports">Reports</a></li>
+      </ul>
+    </div>
+    <div class="user-info">
+      Welcome, {{ user?.firstName || 'User' }} {{ user?.lastName || '' }} |
+      <a href="/" class="logout-link">Logout</a>
+    </div>
+  </div>
+
+  <div class="nav-breadcrumb">Dashboard > Medical Records > Medical History</div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+    <h3 style="color: #333;">Medical History</h3>
+  </div>
+
+  <div *ngIf="loading">Loading records...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="histories.length > 0; else noData">
+    <div *ngFor="let record of histories" class="medical-record">
+      <div class="record-date">{{ record.createdDate | date: 'MMMM d, y' }}</div>
+      <div class="record-title">{{ record.title }}</div>
+      <div class="record-details">{{ record.description }}</div>
+      <div class="record-prescription"><strong>Prescription:</strong> {{ record.prescription }}</div>
+
+      <div style="margin-top: 10px;">
+        <button
+          class="btn btn-secondary"
+          style="padding: 5px 10px; font-size: 0.8rem;"
+          (click)="openDetails(record)"
+        >
+          View Details
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <p>No medical history records found.</p>
+  </ng-template>
+
+  <button class="btn btn-secondary" style="margin-top: 20px;">Back to Appointment</button>
+</div>
+
+<!-- ✅ Modal Popup -->
+<div class="modal-backdrop" *ngIf="selectedRecord">
+  <div class="modal">
+    <h2>{{ selectedRecord.title }}</h2>
+    <p><strong>Date:</strong> {{ selectedRecord.createdDate | date:'longDate' }}</p>
+    <p><strong>Description:</strong> {{ selectedRecord.description }}</p>
+    <p><strong>Prescription:</strong> {{ selectedRecord.prescription }}</p>
+    <p><strong>Created By:</strong> {{ selectedRecord.createdBy }}</p>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" (click)="closeDetails()">Close</button>
+    </div>
+  </div>
+</div>

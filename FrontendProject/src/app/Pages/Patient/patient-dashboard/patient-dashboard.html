@@ -1,0 +1,45 @@
+<div class="page-content">
+
+    <div class="app-header">
+        <div class="logo">🏥 Smart Healthcare</div>
+        <div class="navbar">
+            <ul>
+                <li><a href="/patient-dashboard">Home</a></li>
+                <li><a href="/patient-appointment">Appointments</a></li>
+                <li><a href="/doctors">Doctors</a></li>
+                <li><a href="/PatientReports">Reports</a></li>
+            </ul>
+        </div>
+        <div class="user-info">Welcome, {{ user.firstName }} {{ user.lastName }} | <a href="/"
+                class="logout-link">Logout</a></div>
+    </div>
+
+    <div class="nav-breadcrumb">
+        Dashboard
+    </div>
+
+
+    <div class="dashboard-cards">
+        <div class="dashboard-card">
+            <a href="/user-wise-details">
+                <div class="dashboard-card-icon">👤</div>
+                <h4>Profile</h4>
+            </a>
+        </div>
+        <div class="dashboard-card">
+            <a href="/appointment">
+                <div class="dashboard-card-icon">📅</div>
+                <h4>Appointments</h4>
+            </a>
+        </div>
+        <div class="dashboard-card">
+            <a href="/MedicalHistory">
+                <div class="dashboard-card-icon">📋</div>
+                <h4>Medical Records</h4>
+            </a>
+        </div>
+
+    </div>
+
+
+</div>

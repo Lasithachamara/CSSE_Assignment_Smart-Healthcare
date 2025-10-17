@@ -1,0 +1,76 @@
+<div class="container">
+  <h2>User Details</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSave()" class="user-details-form">
+
+    <div class="form-group">
+      <label>Username</label>
+      <input formControlName="userName" readonly />
+    </div>
+
+    <div class="form-group">
+      <label>NIC</label>
+      <input formControlName="nic" />
+      <div class="error" *ngIf="form.get('nic')?.invalid && (form.get('nic')?.dirty || form.get('nic')?.touched)">
+        <small *ngIf="form.get('nic')?.errors?.['required']">NIC is required.</small>
+        <small *ngIf="form.get('nic')?.errors?.['pattern']">Please enter a valid Sri Lankan NIC.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Name</label>
+      <input formControlName="name" />
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input formControlName="email" type="email" />
+      <div class="error" *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
+        <small *ngIf="form.get('email')?.errors?.['required']">Email is required.</small>
+        <small *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email address.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Mobile No</label>
+      <input formControlName="mobile" type="tel" maxlength="10" />
+      <div class="error" *ngIf="form.get('mobile')?.invalid && (form.get('mobile')?.dirty || form.get('mobile')?.touched)">
+        <small *ngIf="form.get('mobile')?.errors?.['required']">Mobile number is required.</small>
+        <small *ngIf="form.get('mobile')?.errors?.['pattern']">Enter a valid Sri Lankan mobile number (07XXXXXXXX).</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>User Level</label>
+      <select formControlName="accessLevel">
+        <option *ngFor="let level of userLevels" [value]="level.id">{{ level.userType }}</option>
+      </select>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <label>
+        <input type="checkbox" formControlName="activeStatus" />
+        Active
+      </label>
+    </div>
+
+    <div *ngIf="isEditing" class="password-section">
+      <h3>Change Password</h3>
+      <div class="form-group">
+        <label>New Password</label>
+        <input type="password" formControlName="newPassword" />
+      </div>
+      <div class="form-group">
+        <label>Confirm New Password</label>
+        <input type="password" formControlName="confirmPassword" />
+      </div>
+    </div>
+
+    <p class="message" *ngIf="message">{{ message }}</p>
+
+    <div class="button-row">
+      <button type="button" (click)="toggleEdit()" class="btn-edit">{{ isEditing ? 'Cancel' : 'Edit' }}</button>
+      <button *ngIf="isEditing" type="submit" class="btn-save">Save</button>
+    </div>
+  </form>
+</div>

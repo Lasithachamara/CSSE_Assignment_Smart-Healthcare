@@ -1,0 +1,69 @@
+<div class="page-content">
+  <div class="app-header">
+    <div class="logo">🏥 Smart Healthcare</div>
+    <div class="navbar">
+      <ul>
+        <li><a href="/patient-dashboard">Home</a></li>
+        <li><a href="/patient-appointment">Appointments</a></li>
+        <li><a href="/doctors">Doctors</a></li>
+        <li><a href="/PatientReports">Reports</a></li>
+      </ul>
+    </div>
+    <div class="user-info">Welcome, {{ user.firstName }} {{ user.lastName }} | <a href="/"
+        class="logout-link">Logout</a></div>
+  </div>
+
+  <div class="nav-breadcrumb">
+    Dashboard > Appointment > Add Appointment
+  </div>
+
+  <div class="form-container">
+    <h3>Book New Appointment</h3>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Department</label>
+        <select class="form-input" [(ngModel)]="selectedDepartmentId" (change)="onDepartmentChange()">
+          <option value="">Select Department</option>
+          <option *ngFor="let dep of departments" [value]="dep.id">{{ dep.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Doctor</label>
+        <select class="form-input" [(ngModel)]="appointment.doctorId">
+          <option value="">Select Doctor</option>
+          <option *ngFor="let doc of doctors" [value]="doc.id">{{ doc.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Preferred Date</label>
+        <input type="date" class="form-input" [(ngModel)]="appointment.preferredDate">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Available Time Slots</label>
+      <div style="margin-top: 10px;">
+        <span class="time-slot" *ngFor="let slot of ['9:00 AM', '11:00 AM', '2:00 PM', '4:00 PM']"
+          [class.selected]="selectedTimeSlot === slot" (click)="selectTimeSlot(slot)">
+          {{ slot }}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Reason for Visit</label>
+      <textarea class="form-input" rows="3" placeholder="Describe your concern"
+        [(ngModel)]="appointment.reasonforVisit"></textarea>
+    </div>
+
+    <div style="margin-top: 30px;">
+      <button class="btn btn-success" (click)="bookAppointment()">Book Appointment</button>
+      <button class="btn btn-secondary" (click)="goTo('BacktoDashboard')">Cancel</button>
+    </div>
+  </div>
+</div>

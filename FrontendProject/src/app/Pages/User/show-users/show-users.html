@@ -1,0 +1,153 @@
+<div class="table-header">
+  <h2>User List</h2>
+  <button class="add-btn" (click)="goToAddUser()">+ Add User</button>
+</div>
+
+<table class="list-table">
+  <thead>
+    <tr>
+      <th>NIC</th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Mobile</th>
+      <th>Access Level</th>
+      <th>Active</th>
+      <th>Created By</th>
+      <th>Created Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users" 
+        (click)="selectRow(user.id)" 
+        [class.selected]="user.id === selectedUserId">
+      <td>{{ user.nic }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.userName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.mobile }}</td>
+      <td>{{ getAccessLevelName(user.accessLevel) }}</td>
+      <td>{{ user.activeStatus ? 'Yes' : 'No' }}</td>
+      <td>{{ user.createdBy }}</td>
+      <td>{{ user.createdDate | date: 'short' }}</td>
+      <td class="actions-cell">
+        <button 
+          class="edit" 
+          (click)="openUserModal(user); $event.stopPropagation()">
+          View
+        </button>
+        <button 
+          class="delete" 
+          (click)="deleteUser(user.id); $event.stopPropagation()">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="message">{{ message }}</p>
+
+<!-- User Details Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>User Details</h3>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+    
+    <div class="modal-body" *ngIf="selectedUser">
+      <!-- Barcode Section -->
+      <div class="barcode-section">
+        <h4>User ID Barcode</h4>
+        <canvas #barcodeCanvas class="barcode-canvas"></canvas>
+        <p class="barcode-id">ID: {{ selectedUser.id }}</p>
+      </div>
+
+      <!-- User Details Grid -->
+      <div class="details-grid">
+        <div class="form-group">
+          <label>NIC</label>
+          <div class="form-input-display">{{ selectedUser.nic }}</div>
+        </div>
+        
+        <div class="form-group">
+          <label>Name</label>
+          <div class="form-input-display">{{ selectedUser.name }}</div>
+        </div>
+        
+        <div class="form-group">
+          <label>Username</label>
+          <div class="form-input-display">{{ selectedUser.userName }}</div>
+        </div>
+        
+        <div class="form-group">
+          <label>Email</label>
+          <div class="form-input-display">{{ selectedUser.email }}</div>
+        </div>
+        
+        <div class="form-group">
+          <label>Mobile</label>
+          <div class="form-input-display">{{ selectedUser.mobile }}</div>
+        </div>
+        
+        <div class="form-group">
+          <label>Access Level</label>
+          <div class="form-input-display">{{ getAccessLevelName(selectedUser.accessLevel) }}</div>
+        </div>
+        
+        <div class="form-group">
+          <label>Active Status</label>
+          <div class="form-input-display">{{ selectedUser.activeStatus ? 'Yes' : 'No' }}</div>
+        </div>
+        
+        <div class="form-group">
+          <label>Created By</label>
+          <div class="form-input-display">{{ selectedUser.createdBy }}</div>
+        </div>
+        
+        <div class="form-group">
+          <label>Created Date</label>
+          <div class="form-input-display">{{ selectedUser.createdDate | date: 'medium' }}</div>
+        </div>
+      </div>
+
+      <!-- Password Update Section -->
+      <div class="password-section">
+        <h4>Update Password</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input 
+              type="password" 
+              id="newPassword" 
+              [(ngModel)]="newPassword"
+              placeholder="Enter new password"
+              class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input 
+              type="password" 
+              id="confirmPassword" 
+              [(ngModel)]="confirmPassword"
+              placeholder="Confirm new password"
+              class="form-input">
+          </div>
+        </div>
+        <p class="message" [class.success]="passwordSuccess" *ngIf="passwordMessage">
+          {{ passwordMessage }}
+        </p>
+        <div class="button-group">
+          <button class="btn btn-success" (click)="updatePassword()">
+            Update Password
+          </button>
+          <button class="btn btn-secondary" (click)="closeModal()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

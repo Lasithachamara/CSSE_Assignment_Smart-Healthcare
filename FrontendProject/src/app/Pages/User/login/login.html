@@ -1,0 +1,28 @@
+
+
+            <div class="page-content">
+                <div class="login-container">
+                    <div class="login-logo">🏥</div>
+                    <h2 style="color: #333; margin-bottom: 30px;">Smart Healthcare System</h2>
+                    <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="login-form">
+                    <div class="login-form">
+                        <div class="form-group">
+                            <label> Usre Name</label>
+                            <input id="username" name="username" type="text" [(ngModel)]="username" class="form-input" placeholder="Enter your User Name" value="P2025001" required>
+                           
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input id="password" name="password" type="password" class="form-input" placeholder="Enter your password" [(ngModel)]="password" required>
+                        </div>
+                        <button class="btn btn-primary" [disabled]="loginForm.invalid" style="width: 100%; margin-bottom: 15px;">Login</button>
+                        <p class="login-message" *ngIf="message">{{ message }}</p>
+                    </div>
+                    </form>
+
+                    <p style="color: #666; font-size: 0.8rem; margin-top: 20px;">
+                        Forgot Password? <a href="#" style="color: #667eea;">Contact Hospital Staff</a>
+                    </p>
+                </div>
+            </div>
+        

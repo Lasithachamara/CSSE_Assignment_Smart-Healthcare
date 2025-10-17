@@ -1,0 +1,37 @@
+<button type="submit" class="home-btn" (click)="goToDashboard()"> Management Dashboard</button>
+<div class="table-header">
+  <h2>Item List</h2>
+  <button class="add-btn" (click)="createItem()">+ Add Item</button>
+</div>
+
+<table class="list-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Item Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Reorder Level</th>
+      <th>Created By</th>
+      <th>Created Date</th>
+      <th>Active</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items">
+      <td>{{ item.id }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.price | currency: 'LKR' }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.reorderLv }}</td>
+      <td>{{ item.createdBy }}</td>
+      <td>{{ item.createdDate | date: 'short' }}</td>
+      <td>{{ item.isActive ? 'Yes' : 'No' }}</td>
+      <td>
+        <button (click)="editItem(item.id)" class="edit">Edit</button>
+        <button (click)="deactivateItem(item.id)" class="delete">Deactivate</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

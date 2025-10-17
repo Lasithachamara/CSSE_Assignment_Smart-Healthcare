@@ -1,0 +1,110 @@
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2%;
+  margin-bottom: 0.8rem;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, "Helvetica Neue", Arial;
+}
+.add-btn {
+  background: linear-gradient(120deg, #e9b86d 0%, #d79b45 100%);
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1.05rem;
+  border-radius: 28px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(215, 155, 77, 0.18);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  font-size: 0.95rem;
+}
+
+.add-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(215, 155, 77, 0.2);
+}
+.home-btn {
+  background: linear-gradient(120deg, #e9b86d 0%, #d79b45 100%);
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1.05rem;
+  border-radius: 28px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(215, 155, 77, 0.18);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.home-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(215,155,77,0.2); }
+
+.list-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.8rem;
+  background: transparent;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, "Helvetica Neue", Arial;
+}
+
+.list-table th,
+.list-table td {
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(70, 55, 40, 0.06);
+  font-size: 0.95rem;
+  color: #4a392b;
+}
+
+.list-table thead th {
+  background: linear-gradient(120deg, #e9b86d 0%, #d79b45 100%);
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.6px;
+  border-bottom: none;
+  padding: 0.85rem;
+}
+
+.list-table tbody tr {
+  background: linear-gradient(180deg, #fffdfa 0%, #fff9f2 100%);
+  transition: transform 150ms ease, background 150ms ease;
+}
+
+.list-table tbody tr:nth-child(even) {
+  background: linear-gradient(180deg, #f9f5ef 0%, #f6f0e7 100%);
+}
+
+.list-table tbody tr:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(180deg, #fffefa, #fff6ee);
+}
+
+.list-table button {
+  padding: 0.35rem 0.7rem;
+  margin-right: 0.4rem;
+  border: none;
+  border-radius: 18px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  transition: transform 120ms ease;
+  color: #fff;
+}
+
+/* Delete button */
+.list-table button.delete {
+  background: #c36b6b;
+}
+
+.list-table button.delete:hover {
+  background: #a84f4f;
+  transform: translateY(-2px);
+}
+
+/* Edit button */
+.list-table button.edit {
+  background: #7db387;
+}
+
+.list-table button.edit:hover {
+  background: #699f74;
+  transform: translateY(-2px);
+}
